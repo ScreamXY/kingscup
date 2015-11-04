@@ -211,16 +211,16 @@ module.exports = function (grunt) {
         fileTypes:{
           js: {
             block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-              detect: {
+            detect: {
                 js: /'(.*\.js)'/gi
               },
-              replace: {
+            replace: {
                 js: '\'{{filePath}}\','
               }
-            }
           }
+        }
       }
-    }, 
+    },
 
     // Renames files for browser caching purposes
     filerev: {
@@ -420,7 +420,6 @@ module.exports = function (grunt) {
       }
     }
   });
-
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {

@@ -16,14 +16,13 @@
     <link rel="stylesheet" href="styles/icon.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="kingscupApp" ng-controller="MainCtrl as main">
+  <body class="layout-row" ng-app="kingscupApp" ng-controller="MainCtrl as main">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <section layout="row" flex>
-      <md-sidenav md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')">
+      <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2 sc-sidenav" md-is-locked-open="$mdMedia('gt-md')">
         <md-content>
           <ul>
             <li>Home</li>
@@ -51,7 +50,6 @@
           </md-content>
         </div>
       </md-content>
-    </section>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>

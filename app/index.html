@@ -13,6 +13,7 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/icon.css">
     <!-- endbuild -->
   </head>
   <body ng-app="kingscupApp" ng-controller="MainCtrl as main">
@@ -21,7 +22,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div layout="row">
+    <section layout="row" flex>
       <md-sidenav md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')">
         <md-content>
           <ul>
@@ -31,24 +32,26 @@
           </ul>
         </md-content>
       </md-sidenav>
-      <div>
-        <md-toolbar>
-          <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" ng-click="main.openLeftMenu()" aria-label="Menu">
-              Menu
-            </md-button>
-            <h2>
-              <span>Kingscup</span>
-            </h2>
-          </div>
-        </md-toolbar>
-        <md-content>
-          <div class="container">
-            <div ng-view=""></div>
-          </div>
-        </md-content>
-      </div>
-    </div>
+      <md-content flex>
+        <div layout="column" layout-fill layout-align="top center">
+          <md-toolbar>
+            <div class="md-toolbar-tools">
+              <md-button class="md-icon-button" ng-if="!main.mdMedia('gt-md')" ng-click="main.openLeftMenu()" aria-label="Menu">
+                <md-icon>menu</md-icon>
+              </md-button>
+              <h2>
+                <span>Kingscup</span>
+              </h2>
+            </div>
+          </md-toolbar>
+          <md-content layout="column" layout-fill layout-padding>
+            <div class="container">
+              <div ng-view=""></div>
+            </div>
+          </md-content>
+        </div>
+      </md-content>
+    </section>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>

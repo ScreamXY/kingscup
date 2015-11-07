@@ -8,9 +8,13 @@
 angular.module('kingscupApp')
   .directive('playingcard', playingcard);
 
-function playingcard(cardRules) {
+function playingcard(CardRulesService) {
   var directive = {
-    template: '<div ng-class="card" ng-style="{zoom: zoom}" ng-click="dm.card = false"></div>',
+    template: '' +
+      '<div ng-class="card" ng-style="{zoom: zoom}" ng-if="dm.card" ng-click="dm.card = false"></div>' +
+      '<div class="empty" ng-style="{zoom: zoom}" ng-if="!dm.card" ng-click="dm.card = true">' +
+        '<p class="rule_text">{{dm.ruleText}}</p>' +
+      '</div>',
     restrict: 'EA',
     scope: {
       card: '@',
@@ -24,9 +28,9 @@ function playingcard(cardRules) {
   function link(scope, element, attrs) {
 
     scope.dm = {
-      card: true;
-      ruleText: '';
-    }
+      card: true,
+      ruleText: CardRulesService.getRuleText(scope.card)
+    };
 
   }
 }

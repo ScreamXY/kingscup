@@ -15,8 +15,21 @@ body {
 .sc-sidenav {
 }
 
+.rule_text {
+  margin: 10px;
+  font-size: 1.5em;
+}
+
 
 /*Playing Cards*/
+.empty {
+  height:330px;
+  width: 235px;
+  border: 1px solid black;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
 .joker_black {
   height:335px;
   width: 240px;

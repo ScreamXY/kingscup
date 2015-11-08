@@ -18,7 +18,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngMaterial'
+    'ngMaterial',
+    'LocalStorageModule'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -32,6 +33,11 @@ angular
         controller: 'GameCtrl',
         controllerAs: 'vm'
       })
+      .when('/rules', {
+        templateUrl: 'views/rules.html',
+        controller: 'RulesCtrl',
+        controllerAs: 'vm'
+      })
       .when('/settings', {
         templateUrl: 'views/settings.html',
         controller: 'SettingsCtrl',
@@ -43,4 +49,7 @@ angular
   })
   .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default');
-  });
+  })
+  .config(['localStorageServiceProvider', function(localStorageServiceProvider){
+    localStorageServiceProvider.setPrefix('kingsCup');
+  }]);

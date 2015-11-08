@@ -11,14 +11,17 @@ angular.module('kingscupApp')
 function playingcard(CardRulesService) {
   var directive = {
     template: '' +
-      '<div ng-class="card" ng-style="{zoom: zoom}" ng-if="dm.card" ng-click="dm.card = false"></div>' +
-      '<div class="empty" ng-style="{zoom: zoom}" ng-if="!dm.card" ng-click="dm.card = true">' +
-        '<p class="rule_text">{{dm.ruleText}}</p>' +
+      '<div id="card_face" ng-class="card" ng-style="{zoom: zoom}" ng-if="dm.card" ng-click="dm.card = side ? dm.card : false">' +
+      '</div>' +
+      '<div id="card_back" class="empty" ng-style="{zoom: zoom}" ng-if="!dm.card" ng-click="dm.card = side ? dm.card : true">' +
+        '<h2 class="rule_title">{{dm.ruleText.title}}</h2>' +
+        '<p class="rule_text">{{dm.ruleText.text}}</p>' +
       '</div>',
     restrict: 'EA',
     scope: {
       card: '@',
-      zoom: '@'
+      zoom: '@',
+      side: '@'
     },
     link: link
   };
@@ -27,10 +30,26 @@ function playingcard(CardRulesService) {
 
   function link(scope, element, attrs) {
 
-    scope.dm = {
-      card: true,
-      ruleText: CardRulesService.getRuleText(scope.card)
+    var side = {
+      face: true,
+      back: false
     };
 
+    scope.dm = {
+      card: scope.side ? side[scope.side] : true,
+      init: init
+    };
+
+    function init() {
+      scope.dm.ruleText = CardRulesService.getRuleText(scope.card)
+    }
+
+    init();
+
+    scope.$watch('card', function(newVal, oldVal) {
+      if(newVal) {
+        init();
+      }
+    })
   }
 }

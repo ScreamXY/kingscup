@@ -1,13 +1,17 @@
 'use strict';
 
 angular.module('kingscupApp')
-  .controller('MainCtrl', function ($mdSidenav, $mdMedia) {
+  .controller('MainCtrl', MainCtrl);
 
-    var vm = this;
+function MainCtrl($mdSidenav, $mdMedia, CardRulesService) {
+  var vm = this;
+  vm.mdMedia = $mdMedia;
+  vm.openLeftMenu = openLeftMenu;
 
-    vm.mdMedia = $mdMedia;
+  CardRulesService.initRules();
 
-    vm.openLeftMenu = function() {
-      $mdSidenav('left').toggle();
-    };
-  });
+  function openLeftMenu() {
+    $mdSidenav('left').toggle();
+  }
+
+}

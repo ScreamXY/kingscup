@@ -2,9 +2,24 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>King' Cup</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <!-- Run in full-screen mode. -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Make the status bar black with white text. -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Customize home screen title. -->
+    <meta name="apple-mobile-web-app-title" content="Kings's Cup">
+
+    <!-- Set viewport. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <!-- Android Tab Color -->
+    <meta name="theme-color" content="#000000">
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -16,7 +31,7 @@
     <link rel="stylesheet" href="styles/icon.css">
     <!-- endbuild -->
   </head>
-  <body class="layout-row" ng-app="kingscupApp" ng-controller="MainCtrl as main">
+  <body class="layout-row" ng-app="kingscupApp" ng-controller="MainCtrl as main" ng-cloak>
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -25,9 +40,10 @@
       <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2 sc-sidenav" md-is-locked-open="$mdMedia('gt-md')">
         <md-content>
           <ul>
-            <li>Home</li>
-            <li>Game</li>
-            <li>Settings</li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#game">Game</a></li>
+            <li><a href="#rules">Rules</a></li>
+            <li><a href="#settings">Settings</a></li>
           </ul>
         </md-content>
       </md-sidenav>
@@ -39,7 +55,7 @@
                 <md-icon>menu</md-icon>
               </md-button>
               <h2>
-                <span>Kingscup</span>
+                <span>Kingscup > {{$root.viewName}}</span>
               </h2>
             </div>
           </md-toolbar>
@@ -74,6 +90,7 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -85,6 +102,7 @@
         <script src="scripts/controllers/settings.js"></script>
         <script src="scripts/directives/playingcard.js"></script>
         <script src="scripts/services/cardrules.js"></script>
+        <script src="scripts/controllers/rules.js"></script>
         <!-- endbuild -->
 </body>
 </html>

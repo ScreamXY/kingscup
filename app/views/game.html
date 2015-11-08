@@ -1,1 +1,21 @@
-<p>Game</p>
+<div layout="column">
+  <div layout="column" ng-if="!vm.gameRunning">
+    <md-button class="md-raised md-primary" ng-click="vm.startGame()">Start game</md-button>
+    <md-button class="md-raised" ng-disabled="!vm.resumeAllowed" ng-click="vm.resumeGame()">Resume game</md-button>
+  </div>
+  <div layout="column" ng-if="vm.gameRunning">
+    <pre>{{vm.playedCards}}</pre>
+    <pre>{{vm.currentCard}}</pre>
+    <pre>{{vm.gameArray.length}}</pre>
+    <pre>{{+vm.playedCards * (100 / vm.gameArray.length)}}</pre>
+    <md-button class="md-raised md-primary" ng-click="vm.playCard()">Give me a card.</md-button>
+    <div layout="row" ng-if="vm.currentCard">
+      <playingcard card="{{vm.currentCard}}" zoom="0.5" side="face"></playingcard>
+      <playingcard card="{{vm.currentCard}}" zoom="0.5" side="back"></playingcard>
+    </div>
+    <div layout="row">
+      <p>Game stats:</p>
+      <md-progress-linear md-mode="determinate" ng-value="vm.playedCards * (100 / vm.gameArray.length)"></md-progress-linear>
+    </div>
+  </div>
+</div>

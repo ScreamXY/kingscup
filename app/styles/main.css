@@ -16,8 +16,14 @@ body {
 }
 
 .rule_text {
-  margin: 10px;
-  font-size: 1.5em;
+  height: 255px;
+  overflow: auto;
+  margin: 15px;
+  font-size: 1em;
+}
+
+.rule_title {
+  margin: 15px;
 }
 
 

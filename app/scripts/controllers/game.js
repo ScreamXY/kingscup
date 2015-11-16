@@ -5,16 +5,27 @@ angular.module('kingscupApp')
 
 function GameCtrl ($rootScope) {
   var vm = this;
+
   vm.title = 'Game';
   vm.resumeGame = resumeGame;
   vm.startGame = startGame;
   vm.playCard = playCard;
-  vm.resumeAllowed = false;
-  vm.gameRunning = false;
-  vm.playedCards = 0;
-  vm.currentCard = {};
-  vm.gameArray = [];
   $rootScope.viewName = vm.title;
+  function init() {
+    vm.resumeAllowed = false;
+    vm.gameRunning = false;
+    vm.gameEnd = false;
+    vm.playedCards = 0;
+    vm.kings = 0;
+    vm.fives = 0;
+    vm.sevens = 0;
+    vm.eights = 0;
+    vm.tens = 0;
+    vm.queens = 0;
+    vm.currentCard = {};
+    vm.gameArray = [];
+  }
+  init();
 
   var cards = [
     'joker_black', 'joker_color',
@@ -38,10 +49,11 @@ function GameCtrl ($rootScope) {
 
   function resumeGame() {
     vm.gameRunning = true;
-    //  todo
+    //todo resume from persistent state
   }
 
   function startGame() {
+    init();
     vm.gameRunning = true;
     vm.gameArray = shuffle(cards);
     vm.currentCard = vm.gameArray[0];
@@ -49,10 +61,36 @@ function GameCtrl ($rootScope) {
   }
 
   function playCard() {
-    //todo check game finish, king counter and so on.
     //todo make everything persistent
     vm.currentCard = vm.gameArray[vm.playedCards];
     vm.playedCards += 1;
+
+    var card = vm.currentCard.split('_');
+    switch(card[1]) {
+      case 'king':
+        vm.kings += 1;
+        break;
+      case 'five':
+        vm.fives += 1;
+        break;
+      case 'seven':
+        vm.sevens += 1;
+        break;
+      case 'eight':
+        vm.eights += 1;
+        break;
+      case 'ten':
+        vm.tens += 1;
+        break;
+      case 'queen':
+        vm.queens += 1;
+        break;
+    }
+
+    if(vm.kings === 4) {
+      console.log('You lost the game :D');
+      vm.gameEnd = true;
+    }
   }
 
   function shuffle(array) {

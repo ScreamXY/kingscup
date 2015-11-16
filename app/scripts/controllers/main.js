@@ -13,5 +13,7 @@ function MainCtrl($mdSidenav, $mdMedia, CardRulesService) {
   function openLeftMenu() {
     $mdSidenav('left').toggle();
   }
+  //todo cookie notification
+  //todo impressum / licences
 
 }

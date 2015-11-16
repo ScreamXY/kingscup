@@ -4,18 +4,33 @@
     <md-button class="md-raised" ng-disabled="!vm.resumeAllowed" ng-click="vm.resumeGame()">Resume game</md-button>
   </div>
   <div layout="column" ng-if="vm.gameRunning">
-    <pre>{{vm.playedCards}}</pre>
-    <pre>{{vm.currentCard}}</pre>
-    <pre>{{vm.gameArray.length}}</pre>
-    <pre>{{+vm.playedCards * (100 / vm.gameArray.length)}}</pre>
-    <md-button class="md-raised md-primary" ng-click="vm.playCard()">Give me a card.</md-button>
     <div layout="row" ng-if="vm.currentCard">
       <playingcard card="{{vm.currentCard}}" zoom="0.5" side="face"></playingcard>
       <playingcard card="{{vm.currentCard}}" zoom="0.5" side="back"></playingcard>
     </div>
-    <div layout="row">
+    <md-button class="md-raised md-primary" ng-click="vm.playCard()" ng-disabled="vm.gameEnd">Give me a card.</md-button>
+    <md-button class="md-raised md-primary" ng-click="vm.startGame()" ng-if="vm.gameEnd">Start new game.</md-button>
+    <div layout="column">
       <p>Game stats:</p>
       <md-progress-linear md-mode="determinate" ng-value="vm.playedCards * (100 / vm.gameArray.length)"></md-progress-linear>
+      <div layout="row">
+        <p>Kings:</p><p>&nbsp; {{vm.kings}} / 4</p>
+      </div>
+      <div layout="row">
+        <p>Imitate:</p><p>&nbsp; {{vm.fives}} / 4</p>
+      </div>
+      <div layout="row">
+        <p>Rules:</p><p>&nbsp; {{vm.sevens}} / 4</p>
+      </div>
+      <div layout="row">
+        <p>Mates:</p><p>&nbsp; {{vm.eights}} / 4</p>
+      </div>
+      <div layout="row">
+        <p>Snake Eyes:</p><p>&nbsp; {{vm.tens}} / 4</p>
+      </div>
+      <div layout="row">
+        <p>Questionmaster:</p><p>&nbsp; {{vm.queens}} / 4</p>
+      </div>
     </div>
   </div>
 </div>

@@ -20,6 +20,7 @@ function SettingsCtrl($rootScope, $mdToast, CardRulesService) {
       $mdToast.show($mdToast.simple().content('Error: This shit didn\'t work...'));
     }
     CardRulesService.clearAll();
-
   }
+  //todo edit rules.
+  //todo one gender mode.
 }

@@ -12,7 +12,27 @@ body {
   overflow-x: hidden;
 }
 
-.sc-sidenav {
+.sc-sidenav{
+}
+
+.sc-list{
+}
+
+.sc-list-item {
+  width: 100%;
+  border-bottom: 1px solid black;
+}
+
+.sc-button{
+  width: 100%;
+}
+
+.sc-active{
+  background-color: lightgray;
+}
+
+.sc-toolbar{
+  background-color: #3f3f3f;
 }
 
 .rule_text {

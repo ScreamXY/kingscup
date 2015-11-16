@@ -37,25 +37,35 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-      <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2 sc-sidenav" md-is-locked-open="$mdMedia('gt-md')">
+      <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2 sc-sidenav" md-is-locked-open="$mdMedia('gt-md')" >
         <md-content>
-          <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#game">Game</a></li>
-            <li><a href="#rules">Rules</a></li>
-            <li><a href="#settings">Settings</a></li>
-          </ul>
+          <md-list class="sc-list">
+            <md-subheader class="md-no-sticky">King's Cup</md-subheader>
+            <hr />
+            <md-list-item class="sc-list-item">
+              <md-button class="sc-button" ng-click="main.menuItemClick('home')" ng-class="{'sc-active': $root.viewName === 'Home'}">Home</md-button>
+            </md-list-item>
+            <md-list-item class="sc-list-item">
+              <md-button class="sc-button" ng-click="main.menuItemClick('game')" ng-class="{'sc-active': $root.viewName === 'Game'}">Game</md-button>
+            </md-list-item>
+            <md-list-item class="sc-list-item">
+              <md-button class="sc-button"ng-click="main.menuItemClick('rules')" ng-class="{'sc-active': $root.viewName === 'Rules'}">Rules</md-button>
+            </md-list-item>
+            <md-list-item class="sc-list-item">
+              <md-button class="sc-button" ng-click="main.menuItemClick('settings')" ng-class="{'sc-active': $root.viewName === 'Settings'}">Settings</md-button>
+            </md-list-item>
+          </md-list>
         </md-content>
       </md-sidenav>
       <md-content flex>
         <div layout="column" layout-fill layout-align="top center">
           <md-toolbar>
-            <div class="md-toolbar-tools">
+            <div class="md-toolbar-tools sc-toolbar">
               <md-button class="md-icon-button" ng-if="!main.mdMedia('gt-md')" ng-click="main.openLeftMenu()" aria-label="Menu">
                 <md-icon>menu</md-icon>
               </md-button>
               <h2>
-                <span>Kingscup > {{$root.viewName}}</span>
+                <span>{{$root.viewName}}</span>
               </h2>
             </div>
           </md-toolbar>

@@ -3,7 +3,7 @@
 angular.module('kingscupApp')
   .controller('GameCtrl', GameCtrl);
 
-function GameCtrl ($rootScope) {
+function GameCtrl ($rootScope, localStorageService) {
   var vm = this;
 
   vm.title = 'Game';
@@ -12,7 +12,6 @@ function GameCtrl ($rootScope) {
   vm.playCard = playCard;
   $rootScope.viewName = vm.title;
   function init() {
-    vm.resumeAllowed = false;
     vm.gameRunning = false;
     vm.gameEnd = false;
     vm.playedCards = 0;
@@ -24,6 +23,8 @@ function GameCtrl ($rootScope) {
     vm.queens = 0;
     vm.currentCard = {};
     vm.gameArray = [];
+    vm.pausedGame = localStorageService.get('game');
+    vm.resumeAllowed = vm.pausedGame && !vm.gameEnd ? true : false;
   }
   init();
 
@@ -48,8 +49,18 @@ function GameCtrl ($rootScope) {
   ];
 
   function resumeGame() {
+    var game = localStorageService.get('game');
     vm.gameRunning = true;
-    //todo resume from persistent state
+    vm.gameEnd = game.gameEnd;
+    vm.playedCards = game.playedCards;
+    vm.kings = game.kings;
+    vm.fives = game.fives;
+    vm.sevens = game.sevens;
+    vm.eights = game.eights;
+    vm.tens = game.tens;
+    vm.queens = game.queens;
+    vm.gameArray = game.gameArray;
+    vm.currentCard = game.currentCard;
   }
 
   function startGame() {
@@ -61,7 +72,6 @@ function GameCtrl ($rootScope) {
   }
 
   function playCard() {
-    //todo make everything persistent
     vm.currentCard = vm.gameArray[vm.playedCards];
     vm.playedCards += 1;
 
@@ -91,6 +101,20 @@ function GameCtrl ($rootScope) {
       console.log('You lost the game :D');
       vm.gameEnd = true;
     }
+    var game = {
+      gameRunning: vm.gameRunning,
+      gameEnd: vm.gameEnd,
+      playedCards: vm.playedCards,
+      kings: vm.kings,
+      fives: vm.fives,
+      sevens: vm.sevens,
+      eights: vm.eights,
+      tens: vm.tens,
+      queens: vm.queens,
+      gameArray: vm.gameArray,
+      currentCard: vm.gameArray[vm.playedCards - 1]
+    };
+    localStorageService.set('game', vm);
   }
 
   function shuffle(array) {

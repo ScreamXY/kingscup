@@ -119,6 +119,7 @@ function CardRulesService(localStorageService) {
       rules[card[1]].title = title;
       rules[card[1]].text = text;
     }
+    localStorageService.set('rules', rules);
   }
 
   function clearAll() {

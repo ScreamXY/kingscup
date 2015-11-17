@@ -47,6 +47,9 @@ angular
         redirectTo: '/'
       });
   })
+  .config(function($locationProvider) {
+    $locationProvider.html5Mode(true);
+  })
   .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default');
   })

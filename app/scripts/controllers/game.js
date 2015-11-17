@@ -113,7 +113,7 @@ function GameCtrl ($rootScope, localStorageService) {
       gameArray: vm.gameArray,
       currentCard: vm.gameArray[vm.playedCards - 1]
     };
-    localStorageService.set('game', vm);
+    localStorageService.set('game', game);
   }
 
   function shuffle(array) {

@@ -67,8 +67,7 @@ function GameCtrl ($rootScope, localStorageService) {
     init();
     vm.gameRunning = true;
     vm.gameArray = shuffle(cards);
-    vm.currentCard = vm.gameArray[0];
-    vm.playedCards += 1;
+    playCard();
   }
 
   function playCard() {

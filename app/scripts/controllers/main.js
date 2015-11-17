@@ -16,7 +16,8 @@ function MainCtrl($mdSidenav, $mdMedia, $location, CardRulesService) {
   }
 
   function menuItemClick(route) {
-    $location.path('/' + route);
+    console.log('menuItemClick', route);
+    $location.path(route);
     $mdSidenav('left').toggle();
   }
   //todo cookie notification

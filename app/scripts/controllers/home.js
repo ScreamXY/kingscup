@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('kingscupApp')
-  .controller('HomeCtrl', MainCtrl);
+  .controller('HomeCtrl', HomeCtrl);
 
-function MainCtrl ($rootScope) {
+function HomeCtrl ($rootScope) {
   var vm = this;
   vm.title = 'Home';
   $rootScope.viewName = vm.title;

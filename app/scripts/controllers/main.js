@@ -3,7 +3,7 @@
 angular.module('kingscupApp')
   .controller('MainCtrl', MainCtrl);
 
-function MainCtrl($mdSidenav, $mdMedia, $location, CardRulesService) {
+function MainCtrl($mdSidenav, $mdMedia, $mdToast, $location, $cookies, CardRulesService) {
   var vm = this;
   vm.mdMedia = $mdMedia;
   vm.openLeftMenu = openLeftMenu;
@@ -19,7 +19,19 @@ function MainCtrl($mdSidenav, $mdMedia, $location, CardRulesService) {
     $location.path(route);
     $mdSidenav('left').toggle();
   }
-  //todo cookie notification
-  //todo impressum / licences
+  
+  var cookieInformation = $cookies.get('scCookie');
+  if(!cookieInformation) {
+    var toast = $mdToast.simple()
+      .content('This site uses cookies!')
+      .action('OK')
+      .highlightAction(true)
+      .hideDelay(0);
+    $mdToast.show(toast).then(function(response) {
+      if(response === 'ok') {
+        $cookies.put('scCookie', true);
+      }
+    })
+  }
 
 }

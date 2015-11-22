@@ -43,6 +43,11 @@ angular
         controller: 'SettingsCtrl',
         controllerAs: 'vm'
       })
+      .when('/impressum', {
+        templateUrl: 'views/impressum.html',
+        controller: 'ImpressumCtrl',
+        controllerAs: 'impressum'
+      })
       .otherwise({
         redirectTo: '/'
       });

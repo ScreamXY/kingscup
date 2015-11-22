@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="kingscupApp">
+<html>
   <head>
     <meta charset="utf-8">
     <title>King' Cup</title>
@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="styles/icon.css">
     <!-- endbuild -->
   </head>
-  <body class="layout-row" ng-controller="MainCtrl as main" ng-cloak>
+  <body class="layout-row" ng-app="kingscupApp" ng-controller="MainCtrl as main" ng-cloak>
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -40,7 +40,9 @@
       <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2 sc-sidenav" md-is-locked-open="$mdMedia('gt-md')">
         <md-content>
           <md-list class="sc-list">
-            <md-subheader class="md-no-sticky">King's Cup</md-subheader>
+            <md-subheader class="md-no-sticky" layout-align="center">
+                <playingcard card="spades_king" zoom="1"></playingcard>
+            </md-subheader>
             <hr />
             <md-list-item class="sc-list-item">
               <md-button class="sc-button" ng-click="main.menuItemClick('home')" ng-class="{'sc-active': $root.viewName === 'Home'}">Home</md-button>
@@ -84,7 +86,7 @@
        r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
        }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-       ga('create', 'UA-XXXXX-X');
+       ga('create', 'UA-70468330-1');
        ga('send', 'pageview');
     </script>
 
@@ -109,10 +111,11 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/home.js"></script>
         <script src="scripts/controllers/game.js"></script>
+        <script src="scripts/controllers/rules.js"></script>
         <script src="scripts/controllers/settings.js"></script>
+        <script src="scripts/controllers/impressum.js"></script>
         <script src="scripts/directives/playingcard.js"></script>
         <script src="scripts/services/cardrules.js"></script>
-        <script src="scripts/controllers/rules.js"></script>
         <!-- endbuild -->
 </body>
 </html>

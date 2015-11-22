@@ -5,31 +5,31 @@
   </div>
   <div layout="column" ng-if="vm.gameRunning">
     <div layout="row" ng-if="vm.currentCard">
-      <playingcard card="{{vm.currentCard}}" zoom="0.5" side="face"></playingcard>
-      <playingcard card="{{vm.currentCard}}" zoom="0.5" side="back"></playingcard>
+      <playingcard card="{{vm.currentCard}}" zoom="0.75" side="face"></playingcard>
+      <playingcard card="{{vm.currentCard}}" zoom="0.75" side="back"></playingcard>
     </div>
-    <md-button class="md-raised md-primary" ng-click="vm.playCard()" ng-disabled="vm.gameEnd">Give me a card.</md-button>
+    <md-button class="md-raised md-primary" style="height: 5em;" ng-click="vm.playCard()" ng-disabled="vm.gameEnd">Give me a card.</md-button>
     <md-button class="md-raised md-primary" ng-click="vm.startGame()" ng-if="vm.gameEnd">Start new game.</md-button>
     <div layout="column">
       <p>Game stats:</p>
       <md-progress-linear md-mode="determinate" ng-value="vm.playedCards * (100 / vm.gameArray.length)"></md-progress-linear>
       <div layout="row">
-        <p flex="25">Kings:</p><p flex="25">&nbsp; {{vm.kings}} / 4</p>
+        <p flex="35">Kings:</p><p flex="25">&nbsp; {{vm.kings}} / 4</p>
       </div>
       <div layout="row">
-        <p flex="25">Imitate:</p><p flex="25">&nbsp; {{vm.fives}} / 4</p>
+        <p flex="35">Imitate:</p><p flex="25">&nbsp; {{vm.fives}} / 4</p>
       </div>
       <div layout="row">
-        <p flex="25">Rules:</p><p flex="25">&nbsp; {{vm.sevens}} / 4</p>
+        <p flex="35">Rules:</p><p flex="25">&nbsp; {{vm.sevens}} / 4</p>
       </div>
       <div layout="row">
-        <p flex="25">Mates:</p><p flex="25">&nbsp; {{vm.eights}} / 4</p>
+        <p flex="35">Mates:</p><p flex="25">&nbsp; {{vm.eights}} / 4</p>
       </div>
       <div layout="row">
-        <p flex="25">Snake Eyes:</p><p flex="25">&nbsp; {{vm.tens}} / 4</p>
+        <p flex="35">Snake Eyes:</p><p flex="25">&nbsp; {{vm.tens}} / 4</p>
       </div>
       <div layout="row">
-        <p flex="25">Questionmaster:</p><p flex="25">&nbsp; {{vm.queens}} / 4</p>
+        <p flex="35">Questionmaster:</p><p flex="25">&nbsp; {{vm.queens}} / 4</p>
       </div>
     </div>
   </div>

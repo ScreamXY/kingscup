@@ -1,0 +1,18 @@
+<div id="card_face"
+     [class]="this.card"
+     [style.zoom]="this.zoom"
+     *ngIf="this.card"
+     (click)="this.showFace = !this.showFace">
+</div>
+<div id="card_back"
+     class="empty"
+     [style.zoom]="this.zoom"
+     *ngIf="!this.card"
+     (click)="this.showFace = !this.showFace">
+  <h2 class="rule_title">
+    {{this.ruleText.title}}
+  </h2>
+  <p class="rule_text">
+    {{this.ruleText.text}}
+  </p>
+</div>

@@ -1,0 +1,71 @@
+<div fxLayout="column" fxFlex="auto">
+  <div fxLayout="column"
+       fxFlex="auto"
+       *ngIf="!this.gameRunning">
+    <button mat-button
+            class="mat-raised-button mat-primary"
+            (click)="this.startGame()">
+      Start game
+    </button>
+
+    <button mat-button
+            class="mat-raised-button"
+            [disabled]="!this.resumeAllowed"
+            (click)="this.resumeGame()">
+      Resume game
+    </button>
+  </div>
+  <div *ngIf="this.gameRunning"
+       fxLayout="column"
+       fxFlex="auto">
+    <div *ngIf="this.currentCard"
+         fxLayout="row"
+         fxFlex="auto">
+      <app-card [card]="this.currentCard" zoom="0.75" showFace="true"></app-card>
+      <app-card [card]="this.currentCard" zoom="0.75" showFace="false"></app-card>
+    </div>
+    <button mat-button
+            class="mat-raised-button mat-primary"
+            style="height: 5em;"
+            (click)="this.playCard()"
+            [disabled]="this.endGame">
+      Give me a card.
+    </button>
+    <button mat-button
+            class="mat-raised-button mat-primary"
+            (click)="this.startGame()"
+            *ngIf="this.gameEnd">
+      Start new game.
+    </button>
+    <div fxLayout="column" fxFlex="auto">
+      <p>Game stats:</p>
+      <mat-progress-bar mode="determinate"
+                        [value]="this.playedCards * (100 / this.gameArray.length)">
+      </mat-progress-bar>
+      <div fxLayout="row" fxFlex="auto">
+        <p flex="35">Kings:</p>
+        <p flex="25">&nbsp; {{this.kings}} / 4</p>
+      </div>
+      <div fxLayout="row" fxFlex="auto">
+        <p flex="35">Imitate:</p>
+        <p flex="25">&nbsp; {{vm.fives}} / 4</p>
+      </div>
+      <div fxLayout="row" fxFlex="auto">
+        <p flex="35">Rules:</p>
+        <p flex="25">&nbsp; {{vm.sevens}} / 4</p>
+      </div>
+      <div fxLayout="row" fxFlex="auto">
+        <p flex="35">Mates:</p>
+        <p flex="25">&nbsp; {{vm.eights}} / 4</p>
+      </div>
+      <div fxLayout="row" fxFlex="auto">
+        <p flex="35">Snake Eyes:</p>
+        <p flex="25">&nbsp; {{vm.tens}} / 4</p>
+      </div>
+      <div fxLayout="row" fxFlex="auto">
+        <p flex="35">Questionmaster:</p>
+        <p flex="25">&nbsp; {{vm.queens}} / 4</p>
+      </div>
+    </div>
+  </div>
+</div>

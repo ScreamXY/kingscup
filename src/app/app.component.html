@@ -1,0 +1,61 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav
+               mode="side">
+    <mat-list class="sc-list">
+      <app-card card="spades_king" zoom="1"></app-card>
+      <hr />
+      <mat-list-item class="sc-list-item">
+        <button mat-button
+                class="sc-button"
+                (click)="this.menuItemClick('home')"
+                [class.sc-active]="this.viewName === 'Home'">
+          Home
+        </button>
+      </mat-list-item>
+      <mat-list-item class="sc-list-item">
+        <button mat-button
+                class="sc-button"
+                (click)="this.menuItemClick('game')"
+                [class.sc-active]="this.viewName === 'Game'">
+          Game
+        </button>
+      </mat-list-item>
+      <mat-list-item class="sc-list-item">
+        <button mat-button
+                class="sc-button"
+                (click)="this.menuItemClick('rules')"
+                [class.sc-active]="this.viewName === 'Rules'">
+          Rules
+        </button>
+      </mat-list-item>
+      <mat-list-item class="sc-list-item">
+        <button mat-button
+                class="sc-button"
+                (click)="this.menuItemClick('settings')"
+                [class.sc-active]="this.viewName === 'Settings'">
+          Settings
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div fxLayout="column" fxLayoutFill fxLayoutAlign="top center">
+      <mat-toolbar>
+        <div class="mat-toolbar-tools sc-toolbar">
+          <button mat-button
+                  class="mat-icon-button"
+                  *ngIf="!this.media.isActive('gt-md')"
+                  (click)="this.openLeftMenu()">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <h2>
+            {{this.viewName}}
+          </h2>
+        </div>
+      </mat-toolbar>
+      <div class="container">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,381 @@
+<div fxLayout="column" fxFlex="auto">
+  <div fxLayout="row" fxFlex="auto">
+    <p fxFlex="35">
+      Delete local rules.
+    </p>
+    <button mat-button
+            class="mat-raised-button mat-warn"
+            (click)="this.clearAll()" fxFlex="35">
+      Delete
+    </button>
+  </div>
+  <div fxLayout="column"
+       fxFlex="auto">
+    <div fxLayout="row"
+         fxFlex="auto">
+      <p fxFlex="35">
+        Edit rules.
+      </p>
+      <button mat-button
+              class="mat-raised-button mat-primary"
+              (click)="this.edit = !this.edit">
+        {{this.edit ? 'Close' : 'Edit'}}
+      </button>
+    </div>
+    <div *ngIf="this.edit"
+         fxLayout="column"
+         fxFlex="auto">
+      <div fxLayout="row"
+           fxFlex="auto">
+        <app-card card="joker_black"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="joker_model.title = this.getCardRule('joker_black').title"
+                   [(ngModel)]="this.joker_model.title"
+                   (ngModelChange)="this.setCardRule('joker_black', this.joker_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="joker_model.text = this.getCardRule('joker_black').text"
+                      [(ngModel)]="this.joker_model.text"
+                      (ngModelChange)="this.setCardRule('joker_black', this.joker_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_ace"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="ace_model.title = this.getCardRule('spades_ace').title"
+                   [(ngModel)]="this.ace_model.title"
+                   (ngModelChange)="this.setCardRule('spades_ace', this.ace_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="ace_model.text = this.getCardRule('spades_ace').text"
+                      [(ngModel)]="this.ace_model.text"
+                      (ngModelChange)="this.setCardRule('spades_ace', this.ace_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_two"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="two_model.title = this.getCardRule('spades_two').title"
+                   [(ngModel)]="this.two_model.title"
+                   (ngModelChange)="this.setCardRule('spades_two', this.two_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="two_model.text = this.getCardRule('spades_two').text"
+                      [(ngModel)]="this.two_model.text"
+                      (ngModelChange)="this.setCardRule('spades_two', this.two_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_three"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="three_model.title = this.getCardRule('spades_three').title"
+                   [(ngModel)]="this.three_model.title"
+                   (ngModelChange)="this.setCardRule('spades_three', this.three_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="three_model.text = this.getCardRule('spades_three').text"
+                      [(ngModel)]="this.three_model.text"
+                      (ngModelChange)="this.setCardRule('spades_three', this.three_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_four"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="four_model.title = this.getCardRule('spades_four').title"
+                   [(ngModel)]="this.four_model.title"
+                   (ngModelChange)="this.setCardRule('spades_four', this.four_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="four_model.text = this.getCardRule('spades_four').text"
+                      [(ngModel)]="this.four_model.text"
+                      (ngModelChange)="this.setCardRule('spades_four', this.four_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_five"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="five_model.title = this.getCardRule('spades_five').title"
+                   [(ngModel)]="this.five_model.title"
+                   (ngModelChange)="this.setCardRule('spades_five', this.five_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="five_model.text = this.getCardRule('spades_five').text"
+                      [(ngModel)]="this.five_model.text"
+                      (ngModelChange)="this.setCardRule('spades_five', this.five_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_six"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="six_model.title = this.getCardRule('spades_six').title"
+                   [(ngModel)]="this.six_model.title"
+                   (ngModelChange)="this.setCardRule('spades_six', this.six_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="six_model.text = this.getCardRule('spades_six').text"
+                      [(ngModel)]="this.six_model.text"
+                      (ngModelChange)="this.setCardRule('spades_six', this.six_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_seven"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="seven_model.title = this.getCardRule('spades_seven').title"
+                   [(ngModel)]="this.seven_model.title"
+                   (ngModelChange)="this.setCardRule('spades_seven', this.seven_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="seven_model.text = this.getCardRule('spades_seven').text"
+                      [(ngModel)]="this.seven_model.text"
+                      (ngModelChange)="this.setCardRule('spades_seven', this.seven_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_eight"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="eight_model.title = this.getCardRule('spades_eight').title"
+                   [(ngModel)]="this.eight_model.title"
+                   (ngModelChange)="this.setCardRule('spades_eight', this.eight_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="eight_model.text = this.getCardRule('spades_eight').text"
+                      [(ngModel)]="this.eight_model.text"
+                      (ngModelChange)="this.setCardRule('spades_eight', this.eight_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_nine"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="nine_model.title = this.getCardRule('spades_nine').title"
+                   [(ngModel)]="this.nine_model.title"
+                   (ngModelChange)="this.setCardRule('spades_nine', this.nine_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="nine_model.text = this.getCardRule('spades_nine').text"
+                      [(ngModel)]="this.nine_model.text"
+                      (ngModelChange)="this.setCardRule('spades_nine', this.nine_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_nine"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="nine_model.title = this.getCardRule('spades_nine').title"
+                   [(ngModel)]="this.nine_model.title"
+                   (ngModelChange)="this.setCardRule('spades_nine', this.nine_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="nine_model.text = this.getCardRule('spades_nine').text"
+                      [(ngModel)]="this.nine_model.text"
+                      (ngModelChange)="this.setCardRule('spades_nine', this.nine_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_jack"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="jack_model.title = this.getCardRule('spades_jack').title"
+                   [(ngModel)]="this.jack_model.title"
+                   (ngModelChange)="this.setCardRule('spades_jack', this.jack_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="jack_model.text = this.getCardRule('spades_jack').text"
+                      [(ngModel)]="this.jack_model.text"
+                      (ngModelChange)="this.setCardRule('spades_jack', this.jack_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_queen"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="queen_model.title = this.getCardRule('spades_queen').title"
+                   [(ngModel)]="this.queen_model.title"
+                   (ngModelChange)="this.setCardRule('spades_queen', this.queen_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="queen_model.text = this.getCardRule('spades_queen').text"
+                      [(ngModel)]="this.queen_model.text"
+                      (ngModelChange)="this.setCardRule('spades_queen', this.queen_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <app-card card="spades_king"
+                  style="min-width: 240px;"
+                  zoom="0.75"
+                  showFace="true"
+                  fxFlex="33">
+        </app-card>
+        <div fxLayout="column" fxFlex="66">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Cardname"
+                   ng-init="king_model.title = this.getCardRule('spades_king').title"
+                   [(ngModel)]="this.king_model.title"
+                   (ngModelChange)="this.setCardRule('spades_king', this.king_model)" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Rules"
+                      ng-init="king_model.text = this.getCardRule('spades_king').text"
+                      [(ngModel)]="this.king_model.text"
+                      (ngModelChange)="this.setCardRule('spades_king', this.king_model)">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

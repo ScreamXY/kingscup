@@ -1,0 +1,15 @@
+<section class="home">
+  <h2>Welcome to King's Cup</h2>
+  <p>Change the rules in Settings or start a game right away. Have fun!</p>
+
+  <div class="home__cards">
+    @for (king of kings; track king; let i = $index) {
+      <app-card
+        [card]="king"
+        [zoom]="0.5"
+        animate.enter="fade-in"
+        [style.animation-delay.ms]="i * 60"
+      />
+    }
+  </div>
+</section>

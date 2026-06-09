@@ -1,0 +1,46 @@
+// game component styles
+
+.game {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 720px;
+}
+
+.game__start,
+.game__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.game__cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.game__deal {
+  min-height: 56px;
+}
+
+.game__over {
+  font: var(--mat-sys-title-medium);
+  color: var(--mat-sys-primary);
+}
+
+.game__stat-grid {
+  display: grid;
+  grid-template-columns: max-content auto;
+  gap: 4px 16px;
+  margin: 8px 0 0;
+  max-width: 320px;
+}
+
+.game__stat-grid dt {
+  font-weight: 500;
+}
+
+.game__stat-grid dd {
+  margin: 0;
+}

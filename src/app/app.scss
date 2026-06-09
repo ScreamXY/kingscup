@@ -1,0 +1,33 @@
+// app shell styles
+
+.shell {
+  position: absolute;
+  inset: 0;
+}
+
+.shell__sidenav {
+  width: 280px;
+}
+
+.shell__brand {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+
+.shell__toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+}
+
+.shell__title {
+  margin: 0;
+  font: var(--mat-sys-title-large);
+}
+
+.shell__main {
+  padding: 16px;
+}

@@ -1,27 +1,64 @@
-# Kingscup
+# King's Cup
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.6.
+A small King's Cup card-game companion app, built with **Angular 22** (standalone, signals,
+zoneless change detection) and **Angular Material** (Material 3). Shuffle a deck, draw cards, track
+the per-rank rules, and edit them to your group's house rules — everything is stored locally in the
+browser.
+
+## Prerequisites
+
+- Node.js as pinned in [`.nvmrc`](.nvmrc) (`nvm use`)
+- npm
+
+This repo resolves dependencies against the public npm registry (see [`.npmrc`](.npmrc)).
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```bash
+npm start
+```
 
-## Code scaffolding
+Then open `http://localhost:4200/`. The app reloads on source changes.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Building
 
-## Build
+```bash
+npm run build
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Build artifacts are written to `dist/`. The production configuration is optimized and AOT-compiled
+with strict template checking.
 
-## Running unit tests
+## Unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm test
+```
 
-## Running end-to-end tests
+Tests run on the [Vitest](https://vitest.dev/) runner (jsdom environment).
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## End-to-end tests
 
-## Further help
+```bash
+npm run e2e        # headless
+npm run e2e:ui     # interactive UI mode
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+[Playwright](https://playwright.dev/) specs live in `e2e/` and select elements through resilient
+`data-testid` attributes. The dev server is started automatically.
+
+## Linting & formatting
+
+```bash
+npm run lint      # ESLint (angular-eslint)
+npm run format    # Prettier
+```
+
+## Project structure
+
+- `src/app/shared` — domain types (`Card`, `Rule`, the 54-card `DECK`).
+- `src/app/stores` — `GameStore` and `RulesStore`: signal-based state with derived `computed`
+  statistics and `localStorage` persistence.
+- `src/app/card` — the reusable flip-card component.
+- `src/app/{home,game,rules,settings,impressum,page-not-found}` — lazily loaded routed views.
+- `src/styles` — the card sprite sheet and shared enter animations.

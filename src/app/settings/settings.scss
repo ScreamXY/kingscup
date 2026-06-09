@@ -1,0 +1,28 @@
+// settings component styles
+
+.settings__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.settings__rules {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.settings__rule {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.settings__fields {
+  display: flex;
+  flex: 1 1 320px;
+  flex-direction: column;
+}

@@ -1,0 +1,12 @@
+// home component styles
+
+.home {
+  max-width: 720px;
+}
+
+.home__cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 16px;
+}

@@ -1,0 +1,39 @@
+<section class="settings">
+  <h2>Settings</h2>
+
+  <div class="settings__actions">
+    <p>Reset all rules back to their defaults.</p>
+    <button mat-raised-button color="warn" data-testid="reset-rules" (click)="reset()">
+      Reset rules
+    </button>
+  </div>
+
+  <div class="settings__rules">
+    @for (rank of ranks; track rank; let i = $index) {
+      <div class="settings__rule" animate.enter="fade-in" [style.animation-delay.ms]="i * 30">
+        <app-card [card]="cardFor(rank)" [zoom]="0.6" />
+        <div class="settings__fields">
+          <mat-form-field appearance="outline">
+            <mat-label>Title</mat-label>
+            <input
+              matInput
+              [attr.data-testid]="'rule-title-' + rank"
+              [value]="rulesStore.ruleForRank(rank).title"
+              (input)="updateTitle(rank, $event)"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Rule</mat-label>
+            <textarea
+              matInput
+              rows="4"
+              [attr.data-testid]="'rule-text-' + rank"
+              [value]="rulesStore.ruleForRank(rank).text"
+              (input)="updateText(rank, $event)"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    }
+  </div>
+</section>

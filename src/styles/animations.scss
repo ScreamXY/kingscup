@@ -1,0 +1,20 @@
+// Shared enter animations, applied through Angular's `animate.enter` binding.
+// All motion is gated on `prefers-reduced-motion` so it is fully disabled for
+// users who opt out.
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: kc-fade-in 240ms ease-out both;
+  }
+}
+
+@keyframes kc-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

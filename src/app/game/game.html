@@ -1,0 +1,54 @@
+<section class="game">
+  @if (!store.running()) {
+    <div class="game__start">
+      <button mat-raised-button data-testid="start-game" (click)="store.start()">Start game</button>
+      <button
+        mat-stroked-button
+        data-testid="resume-game"
+        [disabled]="!store.canResume()"
+        (click)="store.resume()"
+      >
+        Resume game
+      </button>
+    </div>
+  } @else {
+    @if (store.currentCard(); as card) {
+      <div class="game__cards">
+        <app-card [card]="card" [zoom]="0.75" [showFace]="true" />
+        <app-card [card]="card" [zoom]="0.75" [showFace]="false" />
+      </div>
+    }
+
+    <div class="game__actions">
+      <button
+        mat-raised-button
+        class="game__deal"
+        data-testid="deal-card"
+        [disabled]="store.gameEnd()"
+        (click)="store.draw()"
+      >
+        Give me a card
+      </button>
+      @if (store.gameEnd()) {
+        <button mat-stroked-button (click)="store.start()">Start new game</button>
+      }
+    </div>
+
+    @if (store.gameEnd()) {
+      <p class="game__over" data-testid="game-over">
+        All four kings are out — the last one drinks the King's Cup!
+      </p>
+    }
+
+    <section class="game__stats">
+      <h3>Game stats</h3>
+      <mat-progress-bar mode="determinate" [value]="store.progress()" />
+      <dl class="game__stat-grid">
+        @for (stat of stats; track stat.label) {
+          <dt>{{ stat.label }}</dt>
+          <dd [attr.data-testid]="'stat-' + stat.label">{{ stat.value() }} / 4</dd>
+        }
+      </dl>
+    </section>
+  }
+</section>

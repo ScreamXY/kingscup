@@ -1,0 +1,36 @@
+// impressum component styles
+
+.impressum {
+  max-width: 720px;
+}
+
+.impressum__lede {
+  margin-bottom: 8px;
+  font: var(--mat-sys-body-large);
+}
+
+.impressum h2 {
+  margin-top: 32px;
+  font: var(--mat-sys-title-large);
+}
+
+.impressum h3 {
+  margin-bottom: 4px;
+  font: var(--mat-sys-title-medium);
+}
+
+.impressum a {
+  color: var(--mat-sys-primary);
+
+  &:focus-visible {
+    outline: 3px solid var(--mat-sys-primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+.impressum__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}

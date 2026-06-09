@@ -1,0 +1,183 @@
+// Playing-card sprite sheet (Vectorized Playing Cards 2.0).
+// These rules are global rather than component-scoped because a card face is
+// applied through a class name bound dynamically in the Card component, which
+// Angular's view encapsulation would otherwise rewrite.
+//
+// The source SVG sizes itself in inches but its coordinate system is the
+// viewBox (4320 x 3240), so we pin `background-size` to the viewBox and use the
+// per-card offsets measured directly from the sheet. Each card cell is
+// 222 x 311 units. Suit rows top-to-bottom are clubs, hearts, spades, diamonds;
+// the two jokers sit on the bottom row.
+
+.card__face {
+  background-image: url('/images/Color_52_Faces_v.2.0.svg');
+  background-repeat: no-repeat;
+  background-size: 4320px 3240px;
+}
+
+.joker_black {
+  background-position: -470px -2505px;
+}
+.joker_color {
+  background-position: -733px -2505px;
+}
+
+.clubs_ace {
+  background-position: -470px -1094px;
+}
+.clubs_two {
+  background-position: -733px -1094px;
+}
+.clubs_three {
+  background-position: -996px -1094px;
+}
+.clubs_four {
+  background-position: -1259px -1094px;
+}
+.clubs_five {
+  background-position: -1522px -1094px;
+}
+.clubs_six {
+  background-position: -1786px -1094px;
+}
+.clubs_seven {
+  background-position: -2049px -1094px;
+}
+.clubs_eight {
+  background-position: -2312px -1094px;
+}
+.clubs_nine {
+  background-position: -2575px -1094px;
+}
+.clubs_ten {
+  background-position: -2839px -1094px;
+}
+.clubs_jack {
+  background-position: -3102px -1094px;
+}
+.clubs_queen {
+  background-position: -3365px -1094px;
+}
+.clubs_king {
+  background-position: -3628px -1094px;
+}
+
+.hearts_ace {
+  background-position: -470px -1446px;
+}
+.hearts_two {
+  background-position: -733px -1446px;
+}
+.hearts_three {
+  background-position: -996px -1446px;
+}
+.hearts_four {
+  background-position: -1259px -1446px;
+}
+.hearts_five {
+  background-position: -1522px -1446px;
+}
+.hearts_six {
+  background-position: -1786px -1446px;
+}
+.hearts_seven {
+  background-position: -2049px -1446px;
+}
+.hearts_eight {
+  background-position: -2312px -1446px;
+}
+.hearts_nine {
+  background-position: -2575px -1446px;
+}
+.hearts_ten {
+  background-position: -2839px -1446px;
+}
+.hearts_jack {
+  background-position: -3102px -1446px;
+}
+.hearts_queen {
+  background-position: -3365px -1446px;
+}
+.hearts_king {
+  background-position: -3628px -1446px;
+}
+
+.spades_ace {
+  background-position: -470px -1797px;
+}
+.spades_two {
+  background-position: -733px -1797px;
+}
+.spades_three {
+  background-position: -996px -1797px;
+}
+.spades_four {
+  background-position: -1259px -1797px;
+}
+.spades_five {
+  background-position: -1522px -1797px;
+}
+.spades_six {
+  background-position: -1786px -1797px;
+}
+.spades_seven {
+  background-position: -2049px -1797px;
+}
+.spades_eight {
+  background-position: -2312px -1797px;
+}
+.spades_nine {
+  background-position: -2575px -1797px;
+}
+.spades_ten {
+  background-position: -2839px -1797px;
+}
+.spades_jack {
+  background-position: -3102px -1797px;
+}
+.spades_queen {
+  background-position: -3365px -1797px;
+}
+.spades_king {
+  background-position: -3628px -1797px;
+}
+
+.diamonds_ace {
+  background-position: -470px -2149px;
+}
+.diamonds_two {
+  background-position: -733px -2149px;
+}
+.diamonds_three {
+  background-position: -996px -2149px;
+}
+.diamonds_four {
+  background-position: -1259px -2149px;
+}
+.diamonds_five {
+  background-position: -1522px -2149px;
+}
+.diamonds_six {
+  background-position: -1786px -2149px;
+}
+.diamonds_seven {
+  background-position: -2049px -2149px;
+}
+.diamonds_eight {
+  background-position: -2312px -2149px;
+}
+.diamonds_nine {
+  background-position: -2575px -2149px;
+}
+.diamonds_ten {
+  background-position: -2839px -2149px;
+}
+.diamonds_jack {
+  background-position: -3102px -2149px;
+}
+.diamonds_queen {
+  background-position: -3365px -2149px;
+}
+.diamonds_king {
+  background-position: -3628px -2149px;
+}

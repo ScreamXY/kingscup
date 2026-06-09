@@ -22,6 +22,10 @@
   border-bottom: 1px solid var(--kc-line);
 }
 
+.shell__brand app-card {
+  --card-zoom: 0.42;
+}
+
 .shell__wordmark {
   display: grid;
   gap: 2px;
@@ -100,6 +104,12 @@
 
 .shell__toolbar .mat-mdc-icon-button {
   color: var(--kc-gold);
+}
+
+// Center the inline hamburger SVG inside the round icon button.
+.shell__menu-icon {
+  display: block;
+  margin: auto;
 }
 
 .shell__title {

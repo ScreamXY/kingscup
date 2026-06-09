@@ -1,8 +1,19 @@
 import { Injectable, effect, signal } from '@angular/core';
-import { CardId, RuleRank, rankOf } from '../shared/card';
+import { CardId, RANKS, RuleRank, rankOf } from '../shared/card';
 import { DEFAULT_RULES, Rule, RuleSet } from '../shared/rule';
 
 const STORAGE_KEY = 'rules';
+
+function isRule(value: unknown): value is Rule {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'title' in value &&
+    typeof value.title === 'string' &&
+    'text' in value &&
+    typeof value.text === 'string'
+  );
+}
 
 /**
  * Holds the editable King's Cup rule set as a signal and transparently persists
@@ -37,15 +48,24 @@ export class RulesStore {
   }
 
   private load(): RuleSet {
+    const rules: RuleSet = structuredClone(DEFAULT_RULES);
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored) as Partial<RuleSet>;
-        return { ...structuredClone(DEFAULT_RULES), ...parsed };
-      } catch {
-        // Corrupt data — fall back to defaults below.
-      }
+    if (!stored) {
+      return rules;
     }
-    return structuredClone(DEFAULT_RULES);
+    try {
+      const parsed: unknown = JSON.parse(stored);
+      if (typeof parsed === 'object' && parsed !== null) {
+        for (const rank of RANKS) {
+          const candidate = (parsed as Partial<Record<RuleRank, unknown>>)[rank];
+          if (isRule(candidate)) {
+            rules[rank] = candidate;
+          }
+        }
+      }
+    } catch {
+      // Corrupt data — keep the defaults.
+    }
+    return rules;
   }
 }

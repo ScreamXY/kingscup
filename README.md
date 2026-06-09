@@ -40,25 +40,36 @@ Tests run on the [Vitest](https://vitest.dev/) runner (jsdom environment).
 ## End-to-end tests
 
 ```bash
-npm run e2e        # headless
-npm run e2e:ui     # interactive UI mode
+npm run e2e        # headless (or: ng e2e)
+npm run e2e:ui     # interactive UI mode (or: ng e2e -c ui)
 ```
 
 [Playwright](https://playwright.dev/) specs live in `e2e/` and select elements through resilient
-`data-testid` attributes. The dev server is started automatically.
+`data-testid` attributes. The dev server is started (or reused) automatically via the `webServer`
+block in `playwright.config.ts`; the `ng e2e` target is wired through
+[`playwright-ng-schematics`](https://github.com/playwright-community/playwright-ng-schematics).
 
-## Linting & formatting
+## Type checking, linting & formatting
 
 ```bash
-npm run lint      # ESLint (angular-eslint)
+npx tsc -b        # type-checks app, unit specs and e2e specs (tsconfig.*.json)
+npm run lint      # type-aware ESLint (angular-eslint + typescript-eslint)
 npm run format    # Prettier
 ```
 
+The whole repo is strictly typed (`strict`, `strictTemplates`, `noUncheckedIndexedAccess`) with no
+`any`; data read back from `localStorage` is validated with type guards before use. The Playwright
+specs and config are covered by their own `tsconfig.e2e.json` project so they are type-checked too.
+
 ## Project structure
 
-- `src/app/shared` — domain types (`Card`, `Rule`, the 54-card `DECK`).
+- `src/app/shared` — the domain model: card/rank/suit types, the 54-card `DECK`, the editable
+  `Rule` set, and helpers such as `rankOf` and `displayName`.
 - `src/app/stores` — `GameStore` and `RulesStore`: signal-based state with derived `computed`
-  statistics and `localStorage` persistence.
-- `src/app/card` — the reusable flip-card component.
-- `src/app/{home,game,rules,settings,impressum,page-not-found}` — lazily loaded routed views.
+  statistics (e.g. a single-pass per-rank tally) and `localStorage` persistence.
+- `src/app/card` — the reusable flip-card component (a native `<button>`; scale it via the
+  `--card-zoom` CSS custom property).
+- `src/app/{home,game,rules,settings,impressum,page-not-found}` — lazily loaded routed views. The
+  sidenav links and toolbar title both derive from the route config (via a custom `TitleStrategy`),
+  so navigation, titles and routes cannot drift apart.
 - `src/styles` — the card sprite sheet and shared enter animations.

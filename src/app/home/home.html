@@ -7,21 +7,14 @@
       your table — or simply deal yourself in.
     </p>
     <div class="home__cta">
-      <a mat-flat-button color="primary" class="kc-cta" routerLink="/game">Deal me in</a>
+      <a mat-flat-button class="kc-cta" routerLink="/game">Deal me in</a>
       <a mat-stroked-button class="kc-cta" routerLink="/rules">How to play</a>
     </div>
   </div>
 
-  <div class="home__fan">
+  <div class="home__fan" [style.--count]="kings.length">
     @for (king of kings; track king; let i = $index) {
-      <app-card
-        class="home__fan-card"
-        [card]="king"
-        [zoom]="0.6"
-        [style.--i]="i"
-        animate.enter="fade-in"
-        [style.animation-delay.ms]="i * 80"
-      />
+      <app-card class="home__fan-card" [card]="king" [style.--i]="i" animate.enter="fade-in" />
     }
   </div>
 </section>

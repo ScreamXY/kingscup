@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Card } from '../card/card';
-import { CardId, RANKS, REPRESENTATIVE_CARD, RuleRank } from '../shared/card';
+import { RULE_CARDS, RuleRank } from '../shared/card';
 import { RulesStore } from '../stores/rules-store';
 
 @Component({
@@ -15,23 +15,16 @@ import { RulesStore } from '../stores/rules-store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Settings {
-  public readonly rulesStore = inject(RulesStore);
+  private readonly rulesStore = inject(RulesStore);
   private readonly snackBar = inject(MatSnackBar);
 
-  public readonly ranks = RANKS;
+  /** One editable row per rank: its representative card and current rule. */
+  public readonly rows = computed(() =>
+    RULE_CARDS.map((entry) => ({ ...entry, rule: this.rulesStore.ruleForRank(entry.rank) })),
+  );
 
-  public cardFor(rank: RuleRank): CardId {
-    return REPRESENTATIVE_CARD[rank];
-  }
-
-  public updateTitle(rank: RuleRank, event: Event): void {
-    const title = (event.target as HTMLInputElement).value;
-    this.rulesStore.setRule(rank, { ...this.rulesStore.ruleForRank(rank), title });
-  }
-
-  public updateText(rank: RuleRank, event: Event): void {
-    const text = (event.target as HTMLTextAreaElement).value;
-    this.rulesStore.setRule(rank, { ...this.rulesStore.ruleForRank(rank), text });
+  public updateRule(rank: RuleRank, field: 'title' | 'text', value: string): void {
+    this.rulesStore.setRule(rank, { ...this.rulesStore.ruleForRank(rank), [field]: value });
   }
 
   public reset(): void {

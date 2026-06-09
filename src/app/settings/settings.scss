@@ -39,6 +39,10 @@
   padding: 1.25rem 1.5rem;
 }
 
+.settings__rule app-card {
+  --card-zoom: 0.6;
+}
+
 .settings__fields {
   display: flex;
   flex: 1 1 320px;

@@ -2,18 +2,27 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { filter, map } from 'rxjs';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { map } from 'rxjs';
+import { AppTitleStrategy } from './app-title-strategy';
+import { routes } from './app.routes';
 import { Card } from './card/card';
 
 interface NavLink {
   path: string;
   label: string;
+  testId: string;
 }
+
+/** The sidenav entries, derived from the routes so labels and titles never drift. */
+const NAV_LINKS: readonly NavLink[] = routes.flatMap((route) =>
+  route.path && route.path !== '**' && typeof route.title === 'string'
+    ? [{ path: `/${route.path}`, label: route.title, testId: `nav-${route.path}` }]
+    : [],
+);
 
 @Component({
   selector: 'app-root',
@@ -24,7 +33,6 @@ interface NavLink {
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
-    MatIconModule,
     MatButtonModule,
     Card,
   ],
@@ -33,16 +41,9 @@ interface NavLink {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  private readonly router = inject(Router);
   private readonly breakpointObserver = inject(BreakpointObserver);
 
-  public readonly links: readonly NavLink[] = [
-    { path: '/home', label: 'Home' },
-    { path: '/game', label: 'Game' },
-    { path: '/rules', label: 'Rules' },
-    { path: '/settings', label: 'Settings' },
-    { path: '/impressum', label: 'Impressum' },
-  ];
+  public readonly links = NAV_LINKS;
 
   /** True on narrow viewports, where the sidenav becomes an overlay drawer. */
   public readonly isHandset = toSignal(
@@ -51,25 +52,11 @@ export class App {
   );
 
   /** The current route's title, shown in the toolbar. */
-  public readonly pageTitle = toSignal(
-    this.router.events.pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-      map(() => this.deepestTitle()),
-    ),
-    { initialValue: '' },
-  );
+  public readonly pageTitle = inject(AppTitleStrategy).pageTitle;
 
   public closeIfHandset(drawer: MatSidenav): void {
     if (this.isHandset()) {
       void drawer.close();
     }
-  }
-
-  private deepestTitle(): string {
-    let route = this.router.routerState.snapshot.root;
-    while (route.firstChild) {
-      route = route.firstChild;
-    }
-    return route.title ?? '';
   }
 }

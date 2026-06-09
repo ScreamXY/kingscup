@@ -44,19 +44,17 @@ html {
   --kc-gold: #e8c873;
   --kc-gold-bright: #f7e3a1;
   --kc-gold-deep: #b8923a;
-  --kc-gold-ink: #2b2206;
 
-  --kc-felt: #0e2a1c;
   --kc-felt-deep: #081c12;
-  --kc-felt-lit: #1c4530;
   --kc-ink: #efe7d2; // warm parchment text
   --kc-ink-dim: #cdbf9c;
 
   --kc-line: rgba(232, 200, 115, 0.28); // hairline gold
   --kc-line-strong: rgba(232, 200, 115, 0.55);
+  // The signature engraved hairline: a gold line fading out at both ends.
+  --kc-hairline: linear-gradient(90deg, transparent, var(--kc-line-strong), transparent);
 
   --kc-shadow-lift: 0 18px 40px -18px rgba(0, 0, 0, 0.75);
-  --kc-glow-gold: 0 0 0 1px var(--kc-line), 0 10px 32px -12px rgba(232, 200, 115, 0.35);
 
   // ── Material 3 system-variable overrides ───────────────────────────────
   // Primary = gold (drives raised buttons, focus, sliders, progress bar).
@@ -203,7 +201,7 @@ a:hover {
   content: '';
   width: 1.8rem;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--kc-line-strong), transparent);
+  background: var(--kc-hairline);
 }
 
 // A framed felt panel with a hairline-gold edge — the base surface for cards,
@@ -216,9 +214,8 @@ a:hover {
   box-shadow: var(--kc-shadow-lift);
 }
 
-// CTA buttons share one engraved-pill shape across every variant, so a primary
+// CTA buttons share one engraved-pill shape across both variants, so a primary
 // (filled) and its secondary (outlined) partner line up as a matched pair.
-.kc-cta.mat-mdc-raised-button,
 .kc-cta.mat-mdc-unelevated-button,
 .kc-cta.mat-mdc-outlined-button {
   height: 52px;
@@ -228,12 +225,10 @@ a:hover {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  --mdc-protected-button-container-shape: 999px;
   --mdc-outlined-button-container-shape: 999px;
 }
 
 // Only the filled CTAs carry the gilded sheen and glow.
-.kc-cta.mat-mdc-raised-button,
 .kc-cta.mat-mdc-unelevated-button {
   background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(0, 0, 0, 0.08));
   box-shadow:
@@ -241,7 +236,7 @@ a:hover {
     0 12px 30px -12px rgba(232, 200, 115, 0.6);
 }
 
-.kc-cta.mat-mdc-raised-button:hover:not(:disabled) {
+.kc-cta.mat-mdc-unelevated-button:hover:not(:disabled) {
   filter: brightness(1.05);
 }
 

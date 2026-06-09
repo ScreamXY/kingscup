@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { RANKS, REPRESENTATIVE_CARD } from '../shared/card';
+import { RANKS } from '../shared/card';
 import { Rules } from './rules';
 
 describe('Rules', () => {
@@ -8,14 +8,12 @@ describe('Rules', () => {
     TestBed.configureTestingModule({});
   });
 
-  it('lists every rule rank in display order', () => {
-    expect(TestBed.createComponent(Rules).componentInstance.ranks).toEqual(RANKS);
-  });
-
-  it('maps each rank to its representative card', () => {
+  it('lists every rule rank in display order with its representative card', () => {
     const rules = TestBed.createComponent(Rules).componentInstance;
-    expect(rules.cardFor('king')).toBe(REPRESENTATIVE_CARD.king);
-    expect(rules.cardFor('joker')).toBe('joker_black');
+
+    expect(rules.ruleCards.map((entry) => entry.rank)).toEqual(RANKS);
+    expect(rules.ruleCards.find((entry) => entry.rank === 'king')?.card).toBe('spades_king');
+    expect(rules.ruleCards.find((entry) => entry.rank === 'joker')?.card).toBe('joker_black');
   });
 
   it('renders a face/back card pair for every rank', async () => {

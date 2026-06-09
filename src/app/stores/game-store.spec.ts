@@ -31,7 +31,7 @@ describe('GameStore', () => {
       store.draw();
     }
     expect(store.gameEnd()).toBe(true);
-    expect(store.kings()).toBe(4);
+    expect(store.kings()).toBe(store.kingsToEnd);
   });
 
   it('derives per-rank counts from the drawn cards', () => {
@@ -46,9 +46,9 @@ describe('GameStore', () => {
     localStorage.setItem('game', JSON.stringify({ deck, drawnCount: 5 }));
     const store = TestBed.inject(GameStore);
     store.resume();
-    expect(store.kings()).toBe(4);
-    expect(store.fives()).toBe(1);
-    expect(store.sevens()).toBe(0);
+    expect(store.counts().king).toBe(4);
+    expect(store.counts().five).toBe(1);
+    expect(store.counts().seven).toBe(0);
     expect(store.gameEnd()).toBe(true);
   });
 
@@ -56,7 +56,7 @@ describe('GameStore', () => {
     const deck: CardId[] = ['spades_two', 'hearts_three', 'clubs_four'];
     localStorage.setItem('game', JSON.stringify({ deck, drawnCount: 2 }));
     const store = TestBed.inject(GameStore);
-    expect(store.canResume()).toBe(true);
+    expect(store.canResume).toBe(true);
     store.resume();
     expect(store.drawnCount()).toBe(2);
     expect(store.currentCard()).toBe('hearts_three');
@@ -64,6 +64,15 @@ describe('GameStore', () => {
 
   it('has no resumable game when storage is empty', () => {
     const store = TestBed.inject(GameStore);
-    expect(store.canResume()).toBe(false);
+    expect(store.canResume).toBe(false);
+  });
+
+  it('rejects saved games whose deck holds unknown cards', () => {
+    localStorage.setItem(
+      'game',
+      JSON.stringify({ deck: ['spades_king', 'not_a_card'], drawnCount: 1 }),
+    );
+    const store = TestBed.inject(GameStore);
+    expect(store.canResume).toBe(false);
   });
 });

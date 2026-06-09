@@ -43,13 +43,19 @@
 
 .home__fan-card {
   --i: 0;
+  // Distance from the fan's centre card, so the spread stays centred for any
+  // hand size (`--count` is bound on the fan container).
+  --off-center: calc(var(--i) - (var(--count, 4) - 1) / 2);
+  --card-zoom: 0.6;
   position: relative;
   margin-inline: clamp(-44px, -4vw, -30px);
   transform-origin: bottom center;
-  // Spread the four cards into a smile: outer cards tilt away and dip lower.
-  transform: rotate(calc((var(--i) - 1.5) * 7deg))
-    translateY(calc((var(--i) - 1.5) * (var(--i) - 1.5) * 7px));
+  // Spread the cards into a smile: outer cards tilt away and dip lower.
+  transform: rotate(calc(var(--off-center) * 7deg))
+    translateY(calc(var(--off-center) * var(--off-center) * 7px));
   transition: transform 0.32s cubic-bezier(0.2, 0.7, 0.3, 1);
+  // Stagger each card's enter animation by its position in the hand.
+  animation-delay: calc(var(--i) * 80ms);
 }
 
 .home__fan-card:hover,

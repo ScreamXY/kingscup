@@ -1,14 +1,10 @@
-<div
+<button
+  type="button"
   class="card"
-  role="button"
-  tabindex="0"
   [attr.data-testid]="'card-' + card()"
-  [style.zoom]="zoom()"
   [attr.aria-label]="ariaLabel()"
   [attr.aria-pressed]="!showingFace()"
   (click)="flip()"
-  (keydown.enter)="flip()"
-  (keydown.space)="flip()"
 >
   <div class="card__inner" [class.card__inner--flipped]="!showingFace()">
     <div [class]="faceClasses()"></div>
@@ -17,4 +13,4 @@
       <p class="card__text">{{ rule().text }}</p>
     </div>
   </div>
-</div>
+</button>

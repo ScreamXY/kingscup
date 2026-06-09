@@ -6,7 +6,7 @@
     [opened]="!isHandset()"
   >
     <div class="shell__brand">
-      <app-card card="spades_king" [zoom]="0.42" />
+      <app-card card="spades_king" />
       <div class="shell__wordmark">
         <span class="shell__crown" aria-hidden="true">♔</span>
         <span class="shell__name">King's Cup</span>
@@ -21,7 +21,7 @@
           routerLinkActive
           #rla="routerLinkActive"
           [activated]="rla.isActive"
-          [attr.data-testid]="'nav-' + link.label.toLowerCase()"
+          [attr.data-testid]="link.testId"
           (click)="closeIfHandset(drawer)"
         >
           {{ link.label }}
@@ -31,10 +31,18 @@
   </mat-sidenav>
 
   <mat-sidenav-content class="shell__content">
-    <mat-toolbar color="primary" class="shell__toolbar">
+    <mat-toolbar class="shell__toolbar">
       @if (isHandset()) {
         <button mat-icon-button (click)="drawer.toggle()" aria-label="Toggle navigation menu">
-          <mat-icon>menu</mat-icon>
+          <svg
+            class="shell__menu-icon"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            aria-hidden="true"
+          >
+            <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+          </svg>
         </button>
       }
       <h1 class="shell__title" data-testid="page-title">{{ pageTitle() }}</h1>

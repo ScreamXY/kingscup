@@ -9,37 +9,39 @@
 
   <div class="settings__actions kc-panel">
     <p class="settings__actions-text">Restore every rule to the rules it shipped with.</p>
-    <button mat-stroked-button color="warn" data-testid="reset-rules" (click)="reset()">
+    <button mat-stroked-button data-testid="reset-rules" (click)="reset()">
       Reset to defaults
     </button>
   </div>
 
   <div class="settings__rules">
-    @for (rank of ranks; track rank; let i = $index) {
+    @for (row of rows(); track row.rank; let i = $index) {
       <div
         class="settings__rule kc-panel"
         animate.enter="fade-in"
         [style.animation-delay.ms]="i * 30"
       >
-        <app-card [card]="cardFor(rank)" [zoom]="0.6" />
+        <app-card [card]="row.card" />
         <div class="settings__fields">
           <mat-form-field appearance="outline">
             <mat-label>Title</mat-label>
             <input
               matInput
-              [attr.data-testid]="'rule-title-' + rank"
-              [value]="rulesStore.ruleForRank(rank).title"
-              (input)="updateTitle(rank, $event)"
+              #titleInput
+              [attr.data-testid]="'rule-title-' + row.rank"
+              [value]="row.rule.title"
+              (input)="updateRule(row.rank, 'title', titleInput.value)"
             />
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Rule</mat-label>
             <textarea
               matInput
+              #textInput
               rows="4"
-              [attr.data-testid]="'rule-text-' + rank"
-              [value]="rulesStore.ruleForRank(rank).text"
-              (input)="updateText(rank, $event)"
+              [attr.data-testid]="'rule-text-' + row.rank"
+              [value]="row.rule.text"
+              (input)="updateRule(row.rank, 'text', textInput.value)"
             ></textarea>
           </mat-form-field>
         </div>

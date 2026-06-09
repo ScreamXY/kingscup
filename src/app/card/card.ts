@@ -8,15 +8,16 @@ import {
   input,
   linkedSignal,
 } from '@angular/core';
-import { CardId } from '../shared/card';
+import { CardId, displayName } from '../shared/card';
 import { Rule } from '../shared/rule';
 import { RulesStore } from '../stores/rules-store';
 
 /**
  * Renders a single playing card. The face shows the sprite for `card`; the back
- * shows the rule it triggers. `showFace` sets the initial side and a click (or
- * Enter/Space) flips it. Whenever the `card` input changes (e.g. a new card is
- * dealt) the element plays a short "deal-in" animation.
+ * shows the rule it triggers. `showFace` sets the initial side and activating
+ * the card flips it. Whenever the `card` input changes (e.g. a new card is
+ * dealt) the element plays a short "deal-in" animation. Consumers scale the
+ * card by setting the `--card-zoom` custom property on the host element.
  */
 @Component({
   selector: 'app-card',
@@ -30,7 +31,6 @@ export class Card {
 
   public readonly card = input.required<CardId>();
   public readonly showFace = input(true);
-  public readonly zoom = input(1);
 
   /** Locally toggled side, re-seeded whenever the `showFace` input changes. */
   public readonly showingFace = linkedSignal(() => this.showFace());
@@ -38,7 +38,9 @@ export class Card {
   public readonly rule = computed<Rule>(() => this.rulesStore.ruleFor(this.card()));
   public readonly faceClasses = computed(() => `card__face ${this.card()}`);
   public readonly ariaLabel = computed(() =>
-    this.showingFace() ? `Card ${this.card()}. Activate to reveal its rule.` : this.rule().title,
+    this.showingFace()
+      ? `${displayName(this.card())}. Activate to reveal its rule.`
+      : this.rule().title,
   );
 
   constructor() {

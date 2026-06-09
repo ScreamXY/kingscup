@@ -28,7 +28,7 @@ export type CardId = `${Suit}_${PipRank}` | 'joker_black' | 'joker_color';
 
 export const SUITS: readonly Suit[] = ['diamonds', 'spades', 'hearts', 'clubs'];
 
-export const PIP_RANKS: readonly PipRank[] = [
+const PIP_RANKS: readonly PipRank[] = [
   'ace',
   'two',
   'three',
@@ -54,28 +54,39 @@ export const DECK: readonly CardId[] = [
   ...SUITS.flatMap((suit) => PIP_RANKS.map((rank) => `${suit}_${rank}` as CardId)),
 ];
 
-/** A representative card to illustrate each rule rank (used by Rules/Settings). */
-export const REPRESENTATIVE_CARD: Readonly<Record<RuleRank, CardId>> = {
-  joker: 'joker_black',
-  ace: 'spades_ace',
-  two: 'spades_two',
-  three: 'spades_three',
-  four: 'spades_four',
-  five: 'spades_five',
-  six: 'spades_six',
-  seven: 'spades_seven',
-  eight: 'spades_eight',
-  nine: 'spades_nine',
-  ten: 'spades_ten',
-  jack: 'spades_jack',
-  queen: 'spades_queen',
-  king: 'spades_king',
-};
+/** A representative card to illustrate a rule rank (used by Rules/Settings). */
+function representativeCard(rank: RuleRank): CardId {
+  return rank === 'joker' ? 'joker_black' : `spades_${rank}`;
+}
+
+/** Every rule rank paired with its representative card, in display order. */
+export const RULE_CARDS: readonly { rank: RuleRank; card: CardId }[] = RANKS.map((rank) => ({
+  rank,
+  card: representativeCard(rank),
+}));
+
+function isPipRank(value: string): value is PipRank {
+  return PIP_RANKS.some((rank) => rank === value);
+}
 
 /** Maps a card to the rule rank it triggers (both jokers share the joker rule). */
 export function rankOf(cardId: CardId): RuleRank {
-  if (cardId.startsWith('joker')) {
-    return 'joker';
+  const [, rank = ''] = cardId.split('_');
+  return isPipRank(rank) ? rank : 'joker';
+}
+
+function capitalize(word: string): string {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+/** Human-readable card name for accessible labels, e.g. "King of Spades". */
+export function displayName(cardId: CardId): string {
+  if (cardId === 'joker_black') {
+    return 'Black Joker';
   }
-  return cardId.split('_')[1] as PipRank;
+  if (cardId === 'joker_color') {
+    return 'Color Joker';
+  }
+  const [suit = '', rank = ''] = cardId.split('_');
+  return `${capitalize(rank)} of ${capitalize(suit)}`;
 }

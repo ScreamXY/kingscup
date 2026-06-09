@@ -20,7 +20,7 @@ describe('Card', () => {
   it('shows the face by default and prompts to reveal the rule', () => {
     const card = createCard('hearts_king').componentInstance;
     expect(card.showingFace()).toBe(true);
-    expect(card.ariaLabel()).toContain('hearts_king');
+    expect(card.ariaLabel()).toBe('King of Hearts. Activate to reveal its rule.');
   });
 
   it('resolves the rule for its card from the rules store', () => {
@@ -50,12 +50,13 @@ describe('Card', () => {
     expect(fixture.componentInstance.showingFace()).toBe(false);
   });
 
-  it('renders an accessible button whose aria-pressed reflects the side', () => {
+  it('renders a native button whose aria-pressed reflects the side', () => {
     const fixture = createCard('joker_black', true);
     const button = (fixture.nativeElement as HTMLElement).querySelector(
       '[data-testid="card-joker_black"]',
     );
-    expect(button?.getAttribute('role')).toBe('button');
+    expect(button?.tagName).toBe('BUTTON');
+    expect(button?.getAttribute('aria-label')).toBe('Black Joker. Activate to reveal its rule.');
     expect(button?.getAttribute('aria-pressed')).toBe('false');
   });
 

@@ -8,20 +8,14 @@
         the cup.
       </p>
       <div class="game__start">
-        <button
-          mat-flat-button
-          color="primary"
-          class="kc-cta"
-          data-testid="start-game"
-          (click)="store.start()"
-        >
+        <button mat-flat-button class="kc-cta" data-testid="start-game" (click)="store.start()">
           Start game
         </button>
         <button
           mat-stroked-button
           class="kc-cta"
           data-testid="resume-game"
-          [disabled]="!store.canResume()"
+          [disabled]="!store.canResume"
           (click)="store.resume()"
         >
           Resume game
@@ -32,12 +26,11 @@
     <div class="game__table">
       <div class="game__deal-col">
         @if (store.currentCard(); as card) {
-          <app-card class="game__hero" [card]="card" [zoom]="cardZoom()" [showFace]="true" />
+          <app-card class="game__hero" [card]="card" />
         }
         <div class="game__actions">
           <button
             mat-flat-button
-            color="primary"
             class="kc-cta game__deal"
             data-testid="deal-card"
             [disabled]="store.gameEnd()"
@@ -55,9 +48,9 @@
         <div
           class="chalice"
           [class.chalice--full]="store.gameEnd()"
-          [style.--fill]="store.kings() / 4"
+          [style.--fill]="store.kingsFill()"
           role="img"
-          [attr.aria-label]="'Kings drawn: ' + store.kings() + ' of 4'"
+          [attr.aria-label]="'Kings drawn: ' + store.kings() + ' of ' + store.kingsToEnd"
         >
           <svg class="chalice__svg" viewBox="0 0 200 250" aria-hidden="true">
             <defs>
@@ -100,7 +93,7 @@
           </svg>
           <p class="chalice__count">
             <span class="chalice__count-num">{{ store.kings() }}</span>
-            <span class="chalice__count-total">of 4 kings</span>
+            <span class="chalice__count-total">of {{ store.kingsToEnd }} kings</span>
           </p>
         </div>
 
@@ -127,13 +120,13 @@
         <h3>The tally</h3>
         <span class="game__deck-label">{{ store.drawnCount() }} dealt</span>
       </div>
-      <mat-progress-bar mode="determinate" [value]="store.progress()" />
+      <mat-progress-bar mode="determinate" aria-label="Cards dealt" [value]="store.progress()" />
       <dl class="game__stat-grid">
-        @for (stat of stats; track stat.label) {
+        @for (stat of stats(); track stat.rank) {
           <div class="game__stat">
             <dt class="game__stat-label">{{ stat.label }}</dt>
-            <dd class="game__stat-value" [attr.data-testid]="'stat-' + stat.label">
-              {{ stat.value() }} / 4
+            <dd class="game__stat-value" [attr.data-testid]="'stat-' + stat.rank">
+              {{ stat.count }} / {{ cardsPerRank }}
             </dd>
           </div>
         }

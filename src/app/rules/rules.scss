@@ -15,6 +15,7 @@
   gap: 1.5rem;
 }
 
+// Extends the shared .kc-panel with layout and a slightly lighter felt wash.
 .rules__row {
   display: flex;
   flex-wrap: wrap;
@@ -22,8 +23,9 @@
   align-items: flex-start;
   justify-content: center;
   padding: 1.25rem 1rem;
-  border-radius: 16px;
-  border: 1px solid var(--kc-line);
   background: linear-gradient(180deg, rgba(33, 75, 50, 0.4), rgba(10, 32, 22, 0.55));
-  box-shadow: var(--kc-shadow-lift);
+}
+
+.rules__row app-card {
+  --card-zoom: 0.6;
 }

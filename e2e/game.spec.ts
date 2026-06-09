@@ -9,13 +9,13 @@ test('starts a game and deals cards', async ({ page }) => {
   await expect(page.getByTestId('deal-card')).toBeEnabled();
 
   // Stats start at zero for kings.
-  await expect(page.getByTestId('stat-Kings')).toHaveText('0 / 4');
+  await expect(page.getByTestId('stat-king')).toHaveText('0 / 4');
 
   await page.getByTestId('deal-card').click();
   await page.getByTestId('deal-card').click();
   // The six derived stat rows are present.
-  for (const label of ['Kings', 'Imitate', 'Rules', 'Mates', 'Snake Eyes', 'Questionmaster']) {
-    await expect(page.getByTestId(`stat-${label}`)).toBeVisible();
+  for (const rank of ['king', 'five', 'seven', 'eight', 'ten', 'queen']) {
+    await expect(page.getByTestId(`stat-${rank}`)).toBeVisible();
   }
 });
 
@@ -33,13 +33,13 @@ test('ends the game after the fourth king and disables dealing', async ({ page }
   await page.goto('/game');
   await page.getByTestId('resume-game').click();
 
-  await expect(page.getByTestId('stat-Kings')).toHaveText('3 / 4');
+  await expect(page.getByTestId('stat-king')).toHaveText('3 / 4');
 
   // Drawing the fourth king ends the game.
   await page.getByTestId('deal-card').click();
 
   await expect(page.getByTestId('game-over')).toBeVisible();
-  await expect(page.getByTestId('stat-Kings')).toHaveText('4 / 4');
+  await expect(page.getByTestId('stat-king')).toHaveText('4 / 4');
   await expect(page.getByTestId('deal-card')).toBeDisabled();
 });
 

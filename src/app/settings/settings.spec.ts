@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { REPRESENTATIVE_CARD } from '../shared/card';
 import { DEFAULT_RULES } from '../shared/rule';
 import { RulesStore } from '../stores/rules-store';
 import { Settings } from './settings';
@@ -16,15 +15,11 @@ describe('Settings', () => {
     });
   });
 
-  function inputEvent(value: string): Event {
-    return { target: { value } } as unknown as Event;
-  }
-
   it('updates a rule title while preserving its text', () => {
     const settings = TestBed.createComponent(Settings).componentInstance;
     const store = TestBed.inject(RulesStore);
 
-    settings.updateTitle('two', inputEvent('Custom two'));
+    settings.updateRule('two', 'title', 'Custom two');
 
     expect(store.ruleForRank('two')).toEqual({
       title: 'Custom two',
@@ -36,7 +31,7 @@ describe('Settings', () => {
     const settings = TestBed.createComponent(Settings).componentInstance;
     const store = TestBed.inject(RulesStore);
 
-    settings.updateText('two', inputEvent('Drink twice, loudly.'));
+    settings.updateRule('two', 'text', 'Drink twice, loudly.');
 
     expect(store.ruleForRank('two')).toEqual({
       title: DEFAULT_RULES.two.title,
@@ -48,7 +43,7 @@ describe('Settings', () => {
     const settings = TestBed.createComponent(Settings).componentInstance;
     const store = TestBed.inject(RulesStore);
 
-    settings.updateTitle('two', inputEvent('Custom two'));
+    settings.updateRule('two', 'title', 'Custom two');
     settings.reset();
 
     expect(store.ruleForRank('two')).toEqual(DEFAULT_RULES.two);
@@ -57,8 +52,11 @@ describe('Settings', () => {
     });
   });
 
-  it('maps each rank to its representative card', () => {
+  it('pairs each rank with its representative card and current rule', () => {
     const settings = TestBed.createComponent(Settings).componentInstance;
-    expect(settings.cardFor('queen')).toBe(REPRESENTATIVE_CARD.queen);
+
+    const queenRow = settings.rows().find((row) => row.rank === 'queen');
+    expect(queenRow?.card).toBe('spades_queen');
+    expect(queenRow?.rule).toEqual(DEFAULT_RULES.queen);
   });
 });

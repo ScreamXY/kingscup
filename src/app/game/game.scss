@@ -46,6 +46,10 @@
   gap: 1.5rem;
 }
 
+.game__hero {
+  --card-zoom: 0.95;
+}
+
 .game__deal {
   min-width: 200px;
 }
@@ -226,8 +230,8 @@
 
 .game__stat-grid {
   display: grid;
-  // Wide enough that the longest label ("Questionmaster") and its value fit on
-  // one line; narrower tracks cramped the value into a stacked "0 / 4".
+  // Wide enough that the default rule titles and their values fit on one line;
+  // narrower tracks cramped the value into a stacked "0 / 4".
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 0 2rem;
   margin: 1.25rem 0 0;
@@ -239,7 +243,7 @@
   justify-content: space-between;
   gap: 0.75rem;
   padding: 0.55rem 0;
-  border-bottom: 1px solid var(--kc-outline-variant, rgba(232, 200, 115, 0.12));
+  border-bottom: 1px solid rgba(232, 200, 115, 0.12);
 }
 
 .game__stat-label {
@@ -247,7 +251,8 @@
   font-size: 0.82rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  white-space: nowrap;
+  // Labels are the player-editable rule titles, so wrap rather than overflow.
+  overflow-wrap: break-word;
   color: var(--kc-ink-dim);
 }
 
@@ -263,6 +268,12 @@
   .game__table {
     grid-template-columns: 1fr;
     gap: 1.25rem;
+  }
+
+  // The stacked single column leaves less height, so shrink the hero card to
+  // keep the drawn card and its decree visible together without scrolling.
+  .game__hero {
+    --card-zoom: 0.72;
   }
 
   .game__aside {

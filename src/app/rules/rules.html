@@ -6,10 +6,10 @@
   </div>
 
   <div class="rules__grid">
-    @for (rank of ranks; track rank; let i = $index) {
-      <div class="rules__row" animate.enter="fade-in" [style.animation-delay.ms]="i * 40">
-        <app-card [card]="cardFor(rank)" [zoom]="0.6" [showFace]="true" />
-        <app-card [card]="cardFor(rank)" [zoom]="0.6" [showFace]="false" />
+    @for (entry of ruleCards; track entry.rank; let i = $index) {
+      <div class="rules__row kc-panel" animate.enter="fade-in" [style.animation-delay.ms]="i * 40">
+        <app-card [card]="entry.card" />
+        <app-card [card]="entry.card" [showFace]="false" />
       </div>
     }
   </div>

@@ -3,9 +3,17 @@
 
 :host {
   display: inline-block;
+  zoom: var(--card-zoom, 1);
 }
 
 .card {
+  // Native <button> reset — the card supplies all of its own chrome.
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+
   display: inline-block;
   width: 222px;
   height: 311px;
@@ -125,7 +133,7 @@
   width: 54px;
   height: 1px;
   margin: 10px auto 0;
-  background: linear-gradient(90deg, transparent, var(--kc-line-strong), transparent);
+  background: var(--kc-hairline);
 }
 
 .card__text {

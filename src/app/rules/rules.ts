@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Card } from '../card/card';
-import { CardId, RANKS, REPRESENTATIVE_CARD, RuleRank } from '../shared/card';
+import { RULE_CARDS } from '../shared/card';
 
 @Component({
   selector: 'app-rules',
@@ -10,9 +10,5 @@ import { CardId, RANKS, REPRESENTATIVE_CARD, RuleRank } from '../shared/card';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Rules {
-  public readonly ranks = RANKS;
-
-  public cardFor(rank: RuleRank): CardId {
-    return REPRESENTATIVE_CARD[rank];
-  }
+  public readonly ruleCards = RULE_CARDS;
 }

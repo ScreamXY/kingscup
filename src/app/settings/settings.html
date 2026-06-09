@@ -1,16 +1,26 @@
 <section class="settings">
-  <h2>Settings</h2>
+  <div class="settings__intro">
+    <span class="kc-eyebrow">House edits</span>
+    <h2>Rewrite the rules</h2>
+    <p class="settings__lede">
+      Make the game your own — every card's decree is yours to reword. Changes save automatically.
+    </p>
+  </div>
 
-  <div class="settings__actions">
-    <p>Reset all rules back to their defaults.</p>
-    <button mat-raised-button color="warn" data-testid="reset-rules" (click)="reset()">
-      Reset rules
+  <div class="settings__actions kc-panel">
+    <p class="settings__actions-text">Restore every rule to the rules it shipped with.</p>
+    <button mat-stroked-button color="warn" data-testid="reset-rules" (click)="reset()">
+      Reset to defaults
     </button>
   </div>
 
   <div class="settings__rules">
     @for (rank of ranks; track rank; let i = $index) {
-      <div class="settings__rule" animate.enter="fade-in" [style.animation-delay.ms]="i * 30">
+      <div
+        class="settings__rule kc-panel"
+        animate.enter="fade-in"
+        [style.animation-delay.ms]="i * 30"
+      >
         <app-card [card]="cardFor(rank)" [zoom]="0.6" />
         <div class="settings__fields">
           <mat-form-field appearance="outline">

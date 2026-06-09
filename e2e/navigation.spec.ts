@@ -30,6 +30,6 @@ test('navigates between sections through the sidenav', async ({ page }) => {
 test('shows a friendly page for unknown routes', async ({ page }) => {
   await page.goto('/does-not-exist');
   await expect(page.getByTestId('page-title')).toHaveText('Page not found');
-  await page.getByRole('link', { name: 'Back to home' }).click();
+  await page.getByRole('link', { name: 'Back to the table' }).click();
   await expect(page).toHaveURL(/\/home$/);
 });

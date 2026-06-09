@@ -1,33 +1,120 @@
-// app shell styles
+// App shell — the panelled card-room frame around every page.
 
 .shell {
   position: absolute;
   inset: 0;
 }
 
+// ── Sidenav: a darker felt panel rimmed in gold ────────────────────────────
 .shell__sidenav {
-  width: 280px;
+  width: 286px;
+  border: 0;
+  border-right: 1px solid var(--kc-line);
+  background: linear-gradient(180deg, rgba(10, 32, 22, 0.92), rgba(6, 22, 14, 0.96));
+  backdrop-filter: blur(2px);
 }
 
 .shell__brand {
   display: flex;
-  justify-content: center;
-  padding: 16px;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 20px 18px;
+  border-bottom: 1px solid var(--kc-line);
 }
 
+.shell__wordmark {
+  display: grid;
+  gap: 2px;
+}
+
+.shell__crown {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--kc-gold);
+}
+
+.shell__name {
+  font-family: var(--kc-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--kc-gold-bright);
+  text-transform: uppercase;
+}
+
+.shell__tag {
+  font-size: 0.66rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--kc-ink-dim);
+}
+
+// ── Nav list ────────────────────────────────────────────────────────────────
+.shell__sidenav .mat-mdc-list-item {
+  position: relative;
+  margin: 4px 12px;
+  border-radius: 10px;
+  font-family: var(--kc-display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  color: var(--kc-ink-dim);
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.shell__sidenav .mat-mdc-list-item:hover {
+  color: var(--kc-gold-bright);
+}
+
+// A gilded leading bar + warm wash marks the active route.
+.shell__sidenav .mat-mdc-list-item.mdc-list-item--activated {
+  color: var(--kc-gold-bright);
+  background: linear-gradient(90deg, rgba(232, 200, 115, 0.14), rgba(232, 200, 115, 0.02));
+}
+
+.shell__sidenav .mat-mdc-list-item.mdc-list-item--activated::before {
+  content: '';
+  position: absolute;
+  inset-block: 9px;
+  inset-inline-start: 0;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--kc-gold-bright), var(--kc-gold-deep));
+}
+
+// ── Toolbar ─────────────────────────────────────────────────────────────────
 .shell__toolbar {
   position: sticky;
   top: 0;
   z-index: 2;
   display: flex;
   gap: 8px;
+  height: 68px;
+  background: linear-gradient(180deg, rgba(13, 38, 25, 0.86), rgba(11, 32, 21, 0.7));
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--kc-line);
+  color: var(--kc-ink);
+}
+
+.shell__toolbar .mat-mdc-icon-button {
+  color: var(--kc-gold);
 }
 
 .shell__title {
   margin: 0;
-  font: var(--mat-sys-title-large);
+  font-family: var(--kc-display);
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--kc-gold-bright);
 }
 
+// ── Main content area ───────────────────────────────────────────────────────
 .shell__main {
-  padding: 16px;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding: clamp(20px, 4vw, 48px) clamp(16px, 4vw, 40px) 64px;
 }

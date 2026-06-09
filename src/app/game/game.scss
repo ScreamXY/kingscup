@@ -1,46 +1,278 @@
-// game component styles
+// Game — the felt centre of the table: deal a card, read its decree, and watch
+// the King's Cup fill as the kings come out.
 
 .game {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-width: 720px;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+// ── Pre-game: take your seat ────────────────────────────────────────────────
+.game__seat {
+  max-width: 560px;
+  margin-inline: auto;
+  margin-top: clamp(1rem, 5vw, 4rem);
+  padding: clamp(1.75rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.game__seat-text {
+  margin: 0 auto 2rem;
+  max-width: 42ch;
+  color: var(--kc-ink-dim);
 }
 
 .game__start,
 .game__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
+  justify-content: center;
 }
 
-.game__cards {
+// ── In-play: card on the left, cup + decree on the right ────────────────────
+.game__table {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(280px, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+  justify-content: center;
+}
+
+.game__deal-col {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .game__deal {
-  min-height: 56px;
+  min-width: 200px;
 }
 
+.game__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// ── The King's Cup chalice ──────────────────────────────────────────────────
+.chalice {
+  --fill: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1.5rem 1.25rem;
+  border-radius: 16px;
+  border: 1px solid var(--kc-line);
+  background: radial-gradient(70% 60% at 50% 30%, rgba(232, 200, 115, 0.12), transparent 70%);
+}
+
+.chalice__svg {
+  width: clamp(120px, 24vw, 150px);
+  height: auto;
+  overflow: visible;
+}
+
+.chalice__shadow {
+  fill: rgba(0, 0, 0, 0.45);
+}
+
+.chalice__metal > * {
+  fill: url(#kc-gold);
+}
+
+.chalice__bowl-bg {
+  fill: #0a2016;
+}
+
+.chalice__bowl-line {
+  fill: none;
+  stroke: url(#kc-gold);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.chalice__rim {
+  fill: #0c2418;
+  stroke: url(#kc-gold);
+  stroke-width: 3;
+}
+
+.chalice__liquid {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transform: scaleY(var(--fill));
+  transition: transform 0.85s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.chalice__count {
+  margin: 0.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.chalice__count-num {
+  font-family: var(--kc-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--kc-gold-bright);
+}
+
+.chalice__count-total {
+  margin-top: 4px;
+  font-size: 0.66rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--kc-ink-dim);
+}
+
+// When the fourth king lands, the cup glows.
+.chalice--full {
+  border-color: var(--kc-line-strong);
+  background: radial-gradient(70% 60% at 50% 30%, rgba(232, 200, 115, 0.28), transparent 70%);
+}
+
+.chalice--full .chalice__svg {
+  filter: drop-shadow(0 0 14px rgba(232, 200, 115, 0.55));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .chalice--full .chalice__svg {
+    animation: chalice-pulse 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes chalice-pulse {
+  50% {
+    filter: drop-shadow(0 0 22px rgba(232, 200, 115, 0.8));
+  }
+}
+
+// ── The decree (active rule) ────────────────────────────────────────────────
+.game__decree,
 .game__over {
-  font: var(--mat-sys-title-medium);
-  color: var(--mat-sys-primary);
+  padding: 1.5rem 1.6rem;
+}
+
+.game__decree-title {
+  margin: 0.25rem 0 0.6rem;
+  font-size: 1.5rem;
+  // Match the card's decree title: authored casing, and wrap rather than
+  // overflow when a player writes a long title in Settings.
+  text-transform: none;
+  overflow-wrap: break-word;
+  color: var(--kc-gold-bright);
+}
+
+.game__decree-text {
+  margin: 0;
+  color: var(--kc-ink);
+}
+
+// ── Game over ───────────────────────────────────────────────────────────────
+.game__over {
+  text-align: center;
+  border-color: var(--kc-line-strong);
+}
+
+.game__over-crown {
+  display: block;
+  font-size: 2.4rem;
+  color: var(--kc-gold);
+  line-height: 1;
+}
+
+.game__over h3 {
+  margin: 0.4rem 0 0.6rem;
+  color: var(--kc-gold-bright);
+}
+
+.game__over p {
+  margin: 0;
+  color: var(--kc-ink-dim);
+}
+
+// ── The tally ───────────────────────────────────────────────────────────────
+.game__stats {
+  padding: 1.5rem 1.75rem;
+}
+
+.game__stats-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.game__stats-head h3 {
+  margin: 0;
+}
+
+.game__deck-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--kc-ink-dim);
+}
+
+.game__stats mat-progress-bar {
+  border-radius: 999px;
+  overflow: hidden;
 }
 
 .game__stat-grid {
   display: grid;
-  grid-template-columns: max-content auto;
-  gap: 4px 16px;
-  margin: 8px 0 0;
-  max-width: 320px;
+  // Wide enough that the longest label ("Questionmaster") and its value fit on
+  // one line; narrower tracks cramped the value into a stacked "0 / 4".
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0 2rem;
+  margin: 1.25rem 0 0;
 }
 
-.game__stat-grid dt {
-  font-weight: 500;
+.game__stat {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--kc-outline-variant, rgba(232, 200, 115, 0.12));
 }
 
-.game__stat-grid dd {
+.game__stat-label {
+  font-family: var(--kc-display);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--kc-ink-dim);
+}
+
+.game__stat-value {
   margin: 0;
+  font-family: var(--kc-display);
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--kc-gold);
+}
+
+@media (max-width: 720px) {
+  .game__table {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .game__aside {
+    gap: 1.25rem;
+  }
+
+  // Keep the drawn card and its rule together at the top; the cup (a status
+  // piece) follows below, so the decree stays readable without scrolling.
+  .game__decree,
+  .game__over {
+    order: -1;
+  }
 }

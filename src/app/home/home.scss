@@ -1,12 +1,65 @@
-// home component styles
+// Home — the table's invitation: a regal intro over a fanned hand of kings.
 
 .home {
-  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 4rem);
+  text-align: center;
+  padding-top: clamp(1rem, 4vw, 3rem);
 }
 
-.home__cards {
+.home__intro {
+  max-width: 46ch;
+}
+
+.home__title {
+  margin: 0 0 1rem;
+  font-size: clamp(2.4rem, 1.4rem + 4.5vw, 4.2rem);
+  line-height: 1.02;
+}
+
+.home__lede {
+  margin: 0 auto 2rem;
+  font-size: 1.12rem;
+  color: var(--kc-ink-dim);
+}
+
+.home__cta {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 16px;
+  justify-content: center;
+  gap: 14px;
+}
+
+// ── The fanned hand ─────────────────────────────────────────────────────────
+.home__fan {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0 2rem;
+  // Spotlight glow pooling behind the cards.
+  background: radial-gradient(60% 70% at 50% 40%, rgba(232, 200, 115, 0.1), transparent 70%);
+}
+
+.home__fan-card {
+  --i: 0;
+  position: relative;
+  margin-inline: clamp(-44px, -4vw, -30px);
+  transform-origin: bottom center;
+  // Spread the four cards into a smile: outer cards tilt away and dip lower.
+  transform: rotate(calc((var(--i) - 1.5) * 7deg))
+    translateY(calc((var(--i) - 1.5) * (var(--i) - 1.5) * 7px));
+  transition: transform 0.32s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.home__fan-card:hover,
+.home__fan-card:focus-within {
+  transform: rotate(0deg) translateY(-22px) scale(1.05);
+  z-index: 5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home__fan-card {
+    transition: none;
+  }
 }

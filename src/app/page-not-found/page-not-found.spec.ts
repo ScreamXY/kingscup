@@ -14,7 +14,7 @@ describe('PageNotFound', () => {
     await fixture.whenStable();
     const el = fixture.nativeElement as HTMLElement;
 
-    expect(el.textContent).toContain('Page not found');
+    expect(el.textContent).toContain('Not in this hand');
     expect(el.querySelector('a')?.getAttribute('href')).toBe('/home');
   });
 });

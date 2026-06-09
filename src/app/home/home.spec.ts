@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { CardId } from '../shared/card';
 import { Home } from './home';
 
@@ -7,7 +8,8 @@ describe('Home', () => {
 
   beforeEach(() => {
     localStorage.clear();
-    TestBed.configureTestingModule({});
+    // Home links to the game and rules via routerLink, so it needs a router.
+    TestBed.configureTestingModule({ providers: [provideRouter([])] });
   });
 
   it('exposes one king per suit', () => {

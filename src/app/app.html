@@ -6,7 +6,12 @@
     [opened]="!isHandset()"
   >
     <div class="shell__brand">
-      <app-card card="spades_king" [zoom]="0.5" />
+      <app-card card="spades_king" [zoom]="0.42" />
+      <div class="shell__wordmark">
+        <span class="shell__crown" aria-hidden="true">♔</span>
+        <span class="shell__name">King's Cup</span>
+        <span class="shell__tag">The Royal Card Game</span>
+      </div>
     </div>
     <mat-nav-list>
       @for (link of links; track link.path) {

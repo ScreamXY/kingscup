@@ -1,45 +1,254 @@
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
+// ─────────────────────────────────────────────────────────────────────────
+// King's Cup — "The Royal Card Table"
+// A late-night card-room aesthetic: deep casino-felt green, aged gold, engraved
+// Cinzel display caps over a Spectral serif body. Angular Material provides the
+// component machinery; we retheme it entirely through the M3 system variables
+// (--mat-sys-*) so toolbar, buttons, form fields, list and snackbar all inherit
+// the felt-and-gold palette from one place — no per-component overrides needed.
+// ─────────────────────────────────────────────────────────────────────────
+
 @use '@angular/material' as mat;
 @use './styles/cards';
 @use './styles/animations';
 
 html {
   height: 100%;
+
+  // Base M3 theme: a green primary + golden-yellow tertiary give Material a
+  // palette already in the right key; the explicit token overrides below pin it
+  // to our exact felt/gold values. Cinzel drives display/headline tokens,
+  // Spectral everything else.
   @include mat.theme(
     (
       color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
+        primary: mat.$green-palette,
+        tertiary: mat.$yellow-palette,
       ),
-      typography: Roboto,
+      typography: (
+        brand-family: 'Cinzel, serif',
+        plain-family: 'Spectral, serif',
+        bold-weight: 700,
+        medium-weight: 500,
+        regular-weight: 400,
+      ),
       density: 0,
     )
   );
 }
 
-body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
+:root {
+  // Design tokens consumed by our own component styles.
+  --kc-display: 'Cinzel', 'Spectral', serif;
+  --kc-body: 'Spectral', Georgia, serif;
 
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
+  --kc-gold: #e8c873;
+  --kc-gold-bright: #f7e3a1;
+  --kc-gold-deep: #b8923a;
+  --kc-gold-ink: #2b2206;
 
-  // Reset the user agent margin.
-  margin: 0;
-  height: 100%;
+  --kc-felt: #0e2a1c;
+  --kc-felt-deep: #081c12;
+  --kc-felt-lit: #1c4530;
+  --kc-ink: #efe7d2; // warm parchment text
+  --kc-ink-dim: #cdbf9c;
+
+  --kc-line: rgba(232, 200, 115, 0.28); // hairline gold
+  --kc-line-strong: rgba(232, 200, 115, 0.55);
+
+  --kc-shadow-lift: 0 18px 40px -18px rgba(0, 0, 0, 0.75);
+  --kc-glow-gold: 0 0 0 1px var(--kc-line), 0 10px 32px -12px rgba(232, 200, 115, 0.35);
+
+  // ── Material 3 system-variable overrides ───────────────────────────────
+  // Primary = gold (drives raised buttons, focus, sliders, progress bar).
+  --mat-sys-primary: #e8c873;
+  --mat-sys-on-primary: #2b2206;
+  --mat-sys-primary-container: #5d4d1c;
+  --mat-sys-on-primary-container: #f7e4a4;
+  --mat-sys-inverse-primary: #6c5a20;
+
+  // Secondary = the gold-on-felt used for active nav / chips.
+  --mat-sys-secondary: #ddc99a;
+  --mat-sys-on-secondary: #2c2713;
+  --mat-sys-secondary-container: #2f4a36;
+  --mat-sys-on-secondary-container: #f3e6bd;
+
+  --mat-sys-tertiary: #e8c873;
+  --mat-sys-on-tertiary: #2b2206;
+  --mat-sys-tertiary-container: #4a3f18;
+  --mat-sys-on-tertiary-container: #f7e4a4;
+
+  // Surfaces = layered casino felt.
+  --mat-sys-background: #0c2418;
+  --mat-sys-on-background: #efe7d2;
+  --mat-sys-surface: #0e2a1c;
+  --mat-sys-surface-dim: #0a2016;
+  --mat-sys-surface-bright: #1f4530;
+  --mat-sys-on-surface: #efe7d2;
+  --mat-sys-on-surface-variant: #cdbf9c;
+  --mat-sys-surface-container-lowest: #081c12;
+  --mat-sys-surface-container-low: #102e1f;
+  --mat-sys-surface-container: #143524;
+  --mat-sys-surface-container-high: #1a4029;
+  --mat-sys-surface-container-highest: #214b32;
+  --mat-sys-surface-variant: #2a3f30;
+
+  --mat-sys-outline: #8a7c52;
+  --mat-sys-outline-variant: #3c4a3c;
+
+  // Warn / error = a warm crimson that still reads on felt.
+  --mat-sys-error: #eb9d96;
+  --mat-sys-on-error: #43100b;
+  --mat-sys-error-container: #6e2b22;
+  --mat-sys-on-error-container: #ffd9d4;
+
+  // Snackbar et al.
+  --mat-sys-inverse-surface: #efe7d2;
+  --mat-sys-inverse-on-surface: #102b1d;
+  --mat-sys-shadow: #000000;
 }
 
-// Roboto / Material Symbols are loaded in index.html.
-.material-icons {
-  font-family: 'Material Icons';
+body {
+  color-scheme: dark;
+  margin: 0;
+  min-height: 100%;
+  color: var(--kc-ink);
+  font-family: var(--kc-body);
+  font-size: 16px;
+  line-height: 1.6;
+
+  // The card table: a lit pool of felt at the centre fading to a dark vignette
+  // at the edges, over a deep base. Fixed so it stays put while content scrolls.
+  background-color: var(--kc-felt-deep);
+  background-image:
+    radial-gradient(120% 90% at 50% -8%, rgba(56, 122, 86, 0.55) 0%, rgba(14, 42, 28, 0) 55%),
+    radial-gradient(140% 120% at 50% 120%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 60%),
+    linear-gradient(180deg, #123723 0%, #0c2418 45%, #081a11 100%);
+  background-attachment: fixed;
+}
+
+// A faint woven-felt grain laid over the whole table, fixed behind all content
+// (negative z-index so it sits above the body background but beneath the app).
+// Pointer-events none so it never intercepts clicks.
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+// Make Material's structural surfaces transparent so the felt shows through;
+// individual panels opt back into a surface colour where they need one.
+.mat-drawer-container,
+.mat-drawer-content {
+  background-color: transparent !important;
+  color: var(--kc-ink);
+}
+
+// ── Engraved headings ─────────────────────────────────────────────────────
+h1,
+h2,
+h3 {
+  font-family: var(--kc-display);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--kc-gold-bright);
+  text-wrap: balance;
+}
+
+h2 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.6rem, 1.1rem + 2vw, 2.4rem);
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kc-gold);
+}
+
+a {
+  color: var(--kc-gold);
+  text-underline-offset: 3px;
+  text-decoration-color: var(--kc-line-strong);
+}
+
+a:hover {
+  color: var(--kc-gold-bright);
+}
+
+// ── Shared decorative helpers ──────────────────────────────────────────────
+
+// A short engraved overline used above page titles / hero text.
+.kc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.75rem;
+  font-family: var(--kc-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--kc-gold);
+}
+
+.kc-eyebrow::before,
+.kc-eyebrow::after {
+  content: '';
+  width: 1.8rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--kc-line-strong), transparent);
+}
+
+// A framed felt panel with a hairline-gold edge — the base surface for cards,
+// decrees, stats and forms.
+.kc-panel {
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid var(--kc-line);
+  background: linear-gradient(180deg, rgba(33, 75, 50, 0.55), rgba(10, 32, 22, 0.65));
+  box-shadow: var(--kc-shadow-lift);
+}
+
+// CTA buttons share one engraved-pill shape across every variant, so a primary
+// (filled) and its secondary (outlined) partner line up as a matched pair.
+.kc-cta.mat-mdc-raised-button,
+.kc-cta.mat-mdc-unelevated-button,
+.kc-cta.mat-mdc-outlined-button {
+  height: 52px;
+  padding-inline: 1.6rem;
+  border-radius: 999px;
+  font-family: var(--kc-display);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  --mdc-protected-button-container-shape: 999px;
+  --mdc-outlined-button-container-shape: 999px;
+}
+
+// Only the filled CTAs carry the gilded sheen and glow.
+.kc-cta.mat-mdc-raised-button,
+.kc-cta.mat-mdc-unelevated-button {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(0, 0, 0, 0.08));
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.4) inset,
+    0 12px 30px -12px rgba(232, 200, 115, 0.6);
+}
+
+.kc-cta.mat-mdc-raised-button:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+// Stroked / outlined buttons read as engraved gold on felt.
+.mat-mdc-outlined-button:not(:disabled) {
+  --mdc-outlined-button-label-text-color: var(--kc-gold);
+  --mdc-outlined-button-outline-color: var(--kc-line-strong);
+  font-family: var(--kc-display);
+  letter-spacing: 0.08em;
 }

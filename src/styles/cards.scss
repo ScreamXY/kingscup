@@ -10,7 +10,10 @@
 // the two jokers sit on the bottom row.
 
 .card__face {
-  background-image: url('/images/Color_52_Faces_v.2.0.svg');
+  // Source-relative so the bundler emits (and fingerprints) the sprite and
+  // rewrites this URL — keeping it correct under any --base-href, e.g. when
+  // deployed to GitHub Pages under /kingscup/.
+  background-image: url('../images/Color_52_Faces_v.2.0.svg');
   background-repeat: no-repeat;
   background-size: 4320px 3240px;
 }

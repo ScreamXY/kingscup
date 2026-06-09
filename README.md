@@ -72,4 +72,14 @@ specs and config are covered by their own `tsconfig.e2e.json` project so they ar
 - `src/app/{home,game,rules,settings,impressum,page-not-found}` — lazily loaded routed views. The
   sidenav links and toolbar title both derive from the route config (via a custom `TitleStrategy`),
   so navigation, titles and routes cannot drift apart.
-- `src/styles` — the card sprite sheet and shared enter animations.
+- `src/styles` — the card sprite-sheet styles and shared enter animations; the sprite SVG itself
+  lives in `src/images` and is fingerprinted by the bundler.
+
+## CI & deployment
+
+- [`ci.yml`](.github/workflows/ci.yml) runs on every push and pull request: typecheck, lint, unit
+  tests, production build, and the Playwright e2e suite (with traces uploaded on failure).
+- [`deploy.yml`](.github/workflows/deploy.yml) builds with `--base-href /kingscup/` and publishes
+  `dist/kingscup/browser` to GitHub Pages on every push to `master` (plus a copy of `index.html` as
+  `404.html` so deep links survive reloads). One-time setup: in the repository settings, set
+  **Pages → Build and deployment → Source** to **GitHub Actions**.

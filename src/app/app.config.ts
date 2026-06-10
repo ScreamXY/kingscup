@@ -1,5 +1,12 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { TitleStrategy, provideRouter, withComponentInputBinding } from '@angular/router';
+import {
+  PreloadAllModules,
+  TitleStrategy,
+  provideRouter,
+  withComponentInputBinding,
+  withPreloading,
+  withRouterConfig,
+} from '@angular/router';
 
 import { AppTitleStrategy } from './app-title-strategy';
 import { routes } from './app.routes';
@@ -7,7 +14,12 @@ import { routes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes, withComponentInputBinding()),
+    provideRouter(
+      routes,
+      withPreloading(PreloadAllModules),
+      withRouterConfig({ paramsInheritanceStrategy: 'always' }),
+      withComponentInputBinding(),
+    ),
     { provide: TitleStrategy, useExisting: AppTitleStrategy },
   ],
 };

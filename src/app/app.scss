@@ -88,10 +88,43 @@
   background: linear-gradient(180deg, var(--kc-gold-bright), var(--kc-gold-deep));
 }
 
+// ── Legal links: a muted engraved line at the foot of the drawer ───────────
+// Pushed down by margin-top: auto; the drawer's inner container is made a flex
+// column in styles.scss (it is Material's own element, outside this view).
+.shell__legal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding: 16px 20px 20px;
+  border-top: 1px solid var(--kc-line);
+  font-family: var(--kc-display);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--kc-ink-dim);
+}
+
+.shell__legal a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.shell__legal a:hover,
+.shell__legal a:focus-visible {
+  color: var(--kc-gold-bright);
+  text-decoration: underline;
+}
+
+.shell__legal-sep {
+  color: var(--kc-gold-deep);
+}
+
 // ── Toolbar ─────────────────────────────────────────────────────────────────
 .shell__toolbar {
-  // Fixed-height flex item: never let it shrink when the page content is tall.
-  flex: none;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -125,52 +158,8 @@
 }
 
 // ── Main content area ───────────────────────────────────────────────────────
-// A flex column so the footer sits at the bottom of the viewport on short
-// pages and simply follows the content on long ones.
-.shell__content {
-  display: flex;
-  flex-direction: column;
-}
-
 .shell__main {
-  // Auto margins would stop a flex item from stretching, so size it explicitly:
-  // full width minus the gutters, centred, capped at the reading width.
-  --shell-gutter: clamp(16px, 4vw, 40px);
-  flex: 1 0 auto;
-  width: calc(100% - 2 * var(--shell-gutter));
   max-width: 1080px;
   margin-inline: auto;
-  padding: clamp(20px, 4vw, 48px) var(--shell-gutter) 64px;
-}
-
-// ── Footer: a muted engraved line of legal links ────────────────────────────
-.shell__footer {
-  flex: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 12px 16px 18px;
-  font-family: var(--kc-display);
-  font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--kc-ink-dim);
-}
-
-.shell__footer a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.shell__footer a:hover,
-.shell__footer a:focus-visible {
-  color: var(--kc-gold-bright);
-  text-decoration: underline;
-}
-
-.shell__footer-sep {
-  color: var(--kc-gold-deep);
+  padding: clamp(20px, 4vw, 48px) clamp(16px, 4vw, 40px) 64px;
 }

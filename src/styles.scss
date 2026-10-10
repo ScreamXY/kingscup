@@ -155,6 +155,14 @@ body::before {
   color: var(--kc-ink);
 }
 
+// Lay the drawer's inner scroll container out as a column so the shell can pin
+// its legal links to the bottom with margin-top: auto. Material's own rule that
+// hides the container while the drawer is closed is more specific and still wins.
+.mat-drawer-inner-container {
+  display: flex;
+  flex-direction: column;
+}
+
 // ── Engraved headings ─────────────────────────────────────────────────────
 h1,
 h2,

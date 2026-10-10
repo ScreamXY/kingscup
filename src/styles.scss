@@ -11,6 +11,15 @@
 @use './styles/cards';
 @use './styles/animations';
 
+// Self-hosted web fonts (bundled from @fontsource, no third-party font CDN):
+// only the weights the design actually uses.
+@use '@fontsource/cinzel/500' as cinzel-500;
+@use '@fontsource/cinzel/600' as cinzel-600;
+@use '@fontsource/cinzel/700' as cinzel-700;
+@use '@fontsource/spectral/400' as spectral-400;
+@use '@fontsource/spectral/500' as spectral-500;
+@use '@fontsource/spectral/600' as spectral-600;
+
 html {
   height: 100%;
 

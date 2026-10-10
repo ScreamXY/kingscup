@@ -51,5 +51,11 @@
     <main class="shell__main">
       <router-outlet />
     </main>
+
+    <footer class="shell__footer">
+      <a [href]="legalLinks.privacy" data-testid="footer-privacy">Privacy</a>
+      <span class="shell__footer-sep" aria-hidden="true">·</span>
+      <a [href]="legalLinks.legal" data-testid="footer-legal">Legal</a>
+    </footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

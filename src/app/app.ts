@@ -17,6 +17,12 @@ interface NavLink {
   testId: string;
 }
 
+/** The external legal pages linked from the footer on every route. */
+const LEGAL_LINKS = {
+  privacy: 'https://screamxy.github.io/apps/kingscup/privacy/',
+  legal: 'https://screamxy.github.io/legal/',
+} as const;
+
 /** The sidenav entries, derived from the routes so labels and titles never drift. */
 const NAV_LINKS: readonly NavLink[] = routes.flatMap((route) =>
   route.path && route.path !== '**' && typeof route.title === 'string'
@@ -44,6 +50,8 @@ export class App {
   private readonly breakpointObserver = inject(BreakpointObserver);
 
   public readonly links = NAV_LINKS;
+
+  public readonly legalLinks = LEGAL_LINKS;
 
   /** True on narrow viewports, where the sidenav becomes an overlay drawer. */
   public readonly isHandset = toSignal(

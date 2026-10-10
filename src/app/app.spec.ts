@@ -23,4 +23,17 @@ describe('App', () => {
     expect(text).toContain('Game');
     expect(text).toContain('Settings');
   });
+
+  it('links to the privacy and legal pages from the footer', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const el = fixture.nativeElement as HTMLElement;
+    const privacy = el.querySelector<HTMLAnchorElement>('footer [data-testid="footer-privacy"]');
+    const legal = el.querySelector<HTMLAnchorElement>('footer [data-testid="footer-legal"]');
+
+    expect(privacy?.textContent?.trim()).toBe('Privacy');
+    expect(privacy?.getAttribute('href')).toBe('https://screamxy.github.io/apps/kingscup/privacy/');
+    expect(legal?.textContent?.trim()).toBe('Legal');
+    expect(legal?.getAttribute('href')).toBe('https://screamxy.github.io/legal/');
+  });
 });

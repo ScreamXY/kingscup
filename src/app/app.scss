@@ -88,6 +88,41 @@
   background: linear-gradient(180deg, var(--kc-gold-bright), var(--kc-gold-deep));
 }
 
+// ── Legal links: a muted engraved line at the foot of the drawer ───────────
+// Pushed down by margin-top: auto; the drawer's inner container is made a flex
+// column in styles.scss (it is Material's own element, outside this view).
+.shell__legal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding: 16px 20px 20px;
+  border-top: 1px solid var(--kc-line);
+  font-family: var(--kc-display);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--kc-ink-dim);
+}
+
+.shell__legal a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.shell__legal a:hover,
+.shell__legal a:focus-visible {
+  color: var(--kc-gold-bright);
+  text-decoration: underline;
+}
+
+.shell__legal-sep {
+  color: var(--kc-gold-deep);
+}
+
 // ── Toolbar ─────────────────────────────────────────────────────────────────
 .shell__toolbar {
   position: sticky;

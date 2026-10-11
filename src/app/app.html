@@ -28,6 +28,12 @@
         </a>
       }
     </mat-nav-list>
+
+    <nav class="shell__legal" aria-label="Legal">
+      <a [href]="legalLinks.privacy" data-testid="footer-privacy">Privacy</a>
+      <span class="shell__legal-sep" aria-hidden="true">·</span>
+      <a [href]="legalLinks.legal" data-testid="footer-legal">Legal</a>
+    </nav>
   </mat-sidenav>
 
   <mat-sidenav-content class="shell__content">

@@ -80,6 +80,6 @@ specs and config are covered by their own `tsconfig.e2e.json` project so they ar
 - [`ci.yml`](.github/workflows/ci.yml) runs on every push and pull request: typecheck, lint, unit
   tests, production build, and the Playwright e2e suite (with traces uploaded on failure).
 - [`deploy.yml`](.github/workflows/deploy.yml) builds with `--base-href /kingscup/` and publishes
-  `dist/kingscup/browser` to GitHub Pages on every push to `master` (plus a copy of `index.html` as
+  `dist/kingscup/browser` to GitHub Pages on every push to `main` (plus a copy of `index.html` as
   `404.html` so deep links survive reloads). One-time setup: in the repository settings, set
   **Pages → Build and deployment → Source** to **GitHub Actions**.

@@ -12,6 +12,9 @@ browser.
 
 This repo resolves dependencies against the public npm registry (see [`.npmrc`](.npmrc)).
 
+The Vite override keeps the dev server on the patched 8.3 line. Remove it once
+`@angular/build` requires Vite 8.3.3 or newer.
+
 ## Development server
 
 ```bash

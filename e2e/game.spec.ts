@@ -4,7 +4,7 @@ test('starts a game and deals cards', async ({ page }) => {
   await page.goto('/game');
   await page.getByTestId('start-game').click();
 
-  // A current card is shown (face + back pair).
+  // The drawn card is shown.
   await expect(page.locator('.card').first()).toBeVisible();
   await expect(page.getByTestId('deal-card')).toBeEnabled();
 

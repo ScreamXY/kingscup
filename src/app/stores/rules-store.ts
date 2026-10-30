@@ -15,10 +15,7 @@ function isRule(value: unknown): value is Rule {
   );
 }
 
-/**
- * Holds the editable King's Cup rule set as a signal and transparently persists
- * it to `localStorage`. Replaces the old imperative `CardRulesService`.
- */
+/** Holds the editable rule set as a signal and saves it to `localStorage`. */
 @Injectable({ providedIn: 'root' })
 export class RulesStore {
   private readonly rules = signal<RuleSet>(this.load());
@@ -27,22 +24,18 @@ export class RulesStore {
     effect(() => localStorage.setItem(STORAGE_KEY, JSON.stringify(this.rules())));
   }
 
-  /** The rule triggered by a given card. */
   public ruleFor(cardId: CardId): Rule {
     return this.rules()[rankOf(cardId)];
   }
 
-  /** The rule for a rule rank directly. */
   public ruleForRank(rank: RuleRank): Rule {
     return this.rules()[rank];
   }
 
-  /** Replace the rule for a single rank. */
   public setRule(rank: RuleRank, rule: Rule): void {
     this.rules.update((current) => ({ ...current, [rank]: { ...rule } }));
   }
 
-  /** Restore every rule to its shipped default. */
   public reset(): void {
     this.rules.set(structuredClone(DEFAULT_RULES));
   }

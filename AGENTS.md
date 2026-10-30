@@ -1,12 +1,15 @@
 # King’s Cup
 
-You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
+- Angular card game app deployed at `/kingscup/` (GitHub Pages with path routes and a `404.html` fallback). Keep the base href working.
+- Use the Node version in `.nvmrc` (via mise if needed), `npm ci`, `npx tsc -b`, `npm run lint`, `npm run format:check`, `npm test`, and `npm run build`.
+- Game state and house rules are saved in `localStorage`. Check stored data with type guards before use.
 
 ## TypeScript Best Practices
 
 - Use strict type checking
 - Prefer type inference when the type is obvious
 - Avoid the `any` type; use `unknown` when type is uncertain
+- State visibility on every class member (`private`, or `public` when the template uses it) and always use braces on `if`/`else`. ESLint checks both.
 
 ## Angular Best Practices
 
@@ -28,7 +31,6 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Keep components small and focused on a single responsibility
 - Use `input()` and `output()` functions instead of decorators
 - Use `computed()` for derived state
-- Prefer inline templates for small components
 - Prefer Reactive forms instead of Template-driven ones
 - Do NOT use `ngClass`, use `class` bindings instead
 - Do NOT use `ngStyle`, use `style` bindings instead
@@ -45,7 +47,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 - Keep templates simple and avoid complex logic
 - Use native control flow (`@if`, `@for`, `@switch`) instead of `*ngIf`, `*ngFor`, `*ngSwitch`
-- Use the async pipe to handle observables
+- Turn observables into signals with `toSignal()` instead of manual subscriptions
 - Do not assume globals like (`new Date()`) are available.
 
 ## Services

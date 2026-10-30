@@ -1,13 +1,13 @@
 # King's Cup
 
-A small King's Cup card-game companion app, built with **Angular 22** (standalone, signals,
-zoneless change detection) and **Angular Material** (Material 3). Shuffle a deck, draw cards, track
-the per-rank rules, and edit them to your group's house rules — everything is stored locally in the
-browser.
+A small companion app for the King's Cup card game. It is built with **Angular 22** (standalone
+components, signals, zoneless change detection) and **Angular Material** (Material 3). Shuffle a
+deck, draw cards, see the rule for each card and change the rules to your own house rules. All
+data stays in the browser (`localStorage`).
 
 ## Prerequisites
 
-- Node.js as pinned in [`.nvmrc`](.nvmrc) (`nvm use`)
+- Node.js as pinned in [`.nvmrc`](.nvmrc) (mise or nvm can switch to it)
 - npm
 
 This repo resolves dependencies against the public npm registry (see [`.npmrc`](.npmrc)).
@@ -15,74 +15,42 @@ This repo resolves dependencies against the public npm registry (see [`.npmrc`](
 The Vite override keeps the dev server on the patched 8.3 line. Remove it once
 `@angular/build` requires Vite 8.3.3 or newer.
 
-## Development server
+## Commands
 
 ```bash
-npm start
+npm ci
+npm start             # dev server on http://localhost:4200
+npx tsc -b            # type check (app, unit tests, e2e tests)
+npm test              # unit tests (Vitest, jsdom)
+npm run e2e           # end-to-end tests (Playwright, headless)
+npm run e2e:ui        # end-to-end tests in the Playwright UI
+npm run lint          # ESLint (type-aware)
+npm run format        # Prettier (format:check only checks)
+npm run build         # production build to dist/
 ```
 
-Then open `http://localhost:4200/`. The app reloads on source changes.
-
-## Building
-
-```bash
-npm run build
-```
-
-Build artifacts are written to `dist/`. The production configuration is optimized and AOT-compiled
-with strict template checking.
-
-## Unit tests
-
-```bash
-npm test
-```
-
-Tests run on the [Vitest](https://vitest.dev/) runner (jsdom environment).
-
-## End-to-end tests
-
-```bash
-npm run e2e        # headless (or: ng e2e)
-npm run e2e:ui     # interactive UI mode (or: ng e2e -c ui)
-```
-
-[Playwright](https://playwright.dev/) specs live in `e2e/` and select elements through resilient
-`data-testid` attributes. The dev server is started (or reused) automatically via the `webServer`
-block in `playwright.config.ts`; the `ng e2e` target is wired through
-[`playwright-ng-schematics`](https://github.com/playwright-community/playwright-ng-schematics).
-
-## Type checking, linting & formatting
-
-```bash
-npx tsc -b        # type-checks app, unit specs and e2e specs (tsconfig.*.json)
-npm run lint      # type-aware ESLint (angular-eslint + typescript-eslint)
-npm run format    # Prettier
-```
-
-The whole repo is strictly typed (`strict`, `strictTemplates`, `noUncheckedIndexedAccess`) with no
-`any`; data read back from `localStorage` is validated with type guards before use. The Playwright
-specs and config are covered by their own `tsconfig.e2e.json` project so they are type-checked too.
+The e2e tests in `e2e/` find elements by `data-testid`. Playwright starts the dev server, or
+reuses a running one (see `playwright.config.ts`).
 
 ## Project structure
 
-- `src/app/shared` — the domain model: card/rank/suit types, the 54-card `DECK`, the editable
-  `Rule` set, and helpers such as `rankOf` and `displayName`.
-- `src/app/stores` — `GameStore` and `RulesStore`: signal-based state with derived `computed`
-  statistics (e.g. a single-pass per-rank tally) and `localStorage` persistence.
-- `src/app/card` — the reusable flip-card component (a native `<button>`; scale it via the
-  `--card-zoom` CSS custom property).
-- `src/app/{home,game,rules,settings,impressum,page-not-found}` — lazily loaded routed views. The
-  sidenav links and toolbar title both derive from the route config (via a custom `TitleStrategy`),
-  so navigation, titles and routes cannot drift apart.
-- `src/styles` — the card sprite-sheet styles and shared enter animations; the sprite SVG itself
-  lives in `src/images` and is fingerprinted by the bundler.
+- `src/app/shared` — the domain model: card, rank and suit types, the 54-card `DECK`, the default
+  rules and helpers such as `rankOf` and `displayName`.
+- `src/app/stores` — `GameStore` and `RulesStore`: state as signals, saved to `localStorage`.
+  Saved data is checked with type guards before use.
+- `src/app/card` — the flip card component (a native `<button>`). Set the `--card-zoom` CSS
+  custom property to scale it.
+- `src/app/{home,game,rules,settings,impressum,page-not-found}` — the lazy-loaded pages. The
+  sidenav links and the toolbar title both come from the route config (through a custom
+  `TitleStrategy`), so they always match the routes.
+- `src/styles` — the card sprite sheet styles and the shared enter animation. The sprite SVG is in
+  `src/images`; the build adds a content hash to its file name.
 
-## CI & deployment
+## CI and deployment
 
-- [`ci.yml`](.github/workflows/ci.yml) runs on every push and pull request: typecheck, lint, unit
-  tests, production build, and the Playwright e2e suite (with traces uploaded on failure).
+- [`ci.yml`](.github/workflows/ci.yml) runs the type check, lint, format check, unit tests and
+  production build for pushes to `main` and for pull requests. The e2e tests run only locally.
 - [`deploy.yml`](.github/workflows/deploy.yml) builds with `--base-href /kingscup/` and publishes
-  `dist/kingscup/browser` to GitHub Pages on every push to `main` (plus a copy of `index.html` as
-  `404.html` so deep links survive reloads). One-time setup: in the repository settings, set
-  **Pages → Build and deployment → Source** to **GitHub Actions**.
+  `dist/kingscup/browser` to GitHub Pages on every push to `main`. It also copies `index.html` to
+  `404.html`, so deep links still work after a reload. One-time setup: in the repository settings,
+  set **Pages → Build and deployment → Source** to **GitHub Actions**.

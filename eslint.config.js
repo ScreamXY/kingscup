@@ -1,16 +1,17 @@
 // @ts-check
 const eslint = require('@eslint/js');
+const { defineConfig } = require('eslint/config');
 const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
 
-module.exports = tseslint.config(
+module.exports = defineConfig([
   {
     files: ['**/*.ts'],
     extends: [
       eslint.configs.recommended,
-      ...tseslint.configs.recommendedTypeChecked,
-      ...tseslint.configs.stylisticTypeChecked,
-      ...angular.configs.tsRecommended,
+      tseslint.configs.recommendedTypeChecked,
+      tseslint.configs.stylisticTypeChecked,
+      angular.configs.tsRecommended,
     ],
     languageOptions: {
       parserOptions: {
@@ -36,11 +37,15 @@ module.exports = tseslint.config(
           style: 'kebab-case',
         },
       ],
+      '@typescript-eslint/explicit-member-accessibility': [
+        'error',
+        { overrides: { constructors: 'no-public' } },
+      ],
+      curly: 'error',
     },
   },
   {
     files: ['**/*.html'],
-    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
-    rules: {},
+    extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
   },
-);
+]);

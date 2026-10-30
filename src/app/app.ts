@@ -17,7 +17,7 @@ interface NavLink {
   testId: string;
 }
 
-/** The external legal pages linked from the footer on every route. */
+/** The external legal pages linked at the bottom of the drawer. */
 const LEGAL_LINKS = {
   privacy: 'https://screamxy.github.io/apps/kingscup/privacy/',
   legal: 'https://screamxy.github.io/legal/',

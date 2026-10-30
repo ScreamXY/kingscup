@@ -54,15 +54,10 @@ export const DECK: readonly CardId[] = [
   ...SUITS.flatMap((suit) => PIP_RANKS.map((rank) => `${suit}_${rank}` as CardId)),
 ];
 
-/** A representative card to illustrate a rule rank (used by Rules/Settings). */
-function representativeCard(rank: RuleRank): CardId {
-  return rank === 'joker' ? 'joker_black' : `spades_${rank}`;
-}
-
-/** Every rule rank paired with its representative card, in display order. */
+/** Every rule rank paired with a card that shows it, in display order. */
 export const RULE_CARDS: readonly { rank: RuleRank; card: CardId }[] = RANKS.map((rank) => ({
   rank,
-  card: representativeCard(rank),
+  card: rank === 'joker' ? 'joker_black' : `spades_${rank}`,
 }));
 
 function isPipRank(value: string): value is PipRank {

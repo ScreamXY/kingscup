@@ -1,11 +1,6 @@
-// ─────────────────────────────────────────────────────────────────────────
-// King's Cup — "The Royal Card Table"
-// A late-night card-room aesthetic: deep casino-felt green, aged gold, engraved
-// Cinzel display caps over a Spectral serif body. Angular Material provides the
-// component machinery; we retheme it entirely through the M3 system variables
-// (--mat-sys-*) so toolbar, buttons, form fields, list and snackbar all inherit
-// the felt-and-gold palette from one place — no per-component overrides needed.
-// ─────────────────────────────────────────────────────────────────────────
+// Global theme: casino-felt green and gold, Cinzel headings over a Spectral
+// body. Angular Material is rethemed through its M3 system variables
+// (--mat-sys-*); our own styles use the --kc-* tokens below.
 
 @use '@angular/material' as mat;
 @use './styles/cards';
@@ -242,7 +237,6 @@ a:hover {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  --mdc-outlined-button-container-shape: 999px;
 }
 
 // Only the filled CTAs carry the gilded sheen and glow.
@@ -257,10 +251,8 @@ a:hover {
   filter: brightness(1.05);
 }
 
-// Stroked / outlined buttons read as engraved gold on felt.
+// Outlined buttons use the engraved display type.
 .mat-mdc-outlined-button:not(:disabled) {
-  --mdc-outlined-button-label-text-color: var(--kc-gold);
-  --mdc-outlined-button-outline-color: var(--kc-line-strong);
   font-family: var(--kc-display);
   letter-spacing: 0.08em;
 }
